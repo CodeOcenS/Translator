@@ -5,6 +5,6 @@ target 'Translator' do
 
   use_frameworks!
 
-  pod 'CSV.swift', '~> 2.4.2'
+  pod 'CSV.swift'#, '~> 2.4.2'
   pod 'FileKit'
 end

@@ -150,7 +150,7 @@ extension HomeController {
             for title in header { //
                 if title == header.first { continue } // 跳过第一个 key
 
-                let fileName = (title.removeBraces() ?? "") + ".lproj"
+                let fileName = (title.removeBraces() ?? "").lowercased() + ".lproj"
                 let directoryPath = savePath.appendingPathComponent(fileName, isDirectory: true).absoluteString.removeFileHeader().urlDecoded()
                 let localizablePath = directoryPath + "Localizable.strings".urlDecoded()
 
@@ -178,7 +178,7 @@ extension HomeController {
                     if key.isEmpty { continue }
 
                     let value = csv[title] ?? ""
-                    let result = "\"\(key)\" = \"\(value)\";"
+                    let result = "\"\(key)\" = \"\(replaceSpecial(value))\";"
                     let path = paths[index - 1]
                     let readFile = TextFile(path: Path(path))
 
@@ -217,6 +217,13 @@ extension HomeController {
             debugPrint(error)
             showAlert(title: error.localizedDescription)
         }
+    }
+    
+    /// 替换特殊字符 1. %s -> %@  2. " -> \"
+    private func replaceSpecial(_ text: String) -> String {
+        var result: String = text
+        result = text.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
+        return result
     }
 }
 
