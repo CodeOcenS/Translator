@@ -15,7 +15,7 @@
 
 ## ⚒ 安装
 
-从 [Release Page](https://github.com/Jinxiansen/Translator/releases) 下载最新版本。
+从 [Release Page](https://github.com/CodeOcenS/Translator/releases) 下载最新版本。
 
 ## 🔑 使用
 
