@@ -10,6 +10,8 @@ import Cocoa
 import CSV
 import FileKit
 
+private let localizableFileName = "Localizable.strings"
+
 class HomeController: NSViewController {
 
     @IBOutlet weak var savePathField: NSTextField!
@@ -152,7 +154,7 @@ extension HomeController {
 
                 let fileName = (title.removeBraces() ?? "").lowercased() + ".lproj"
                 let directoryPath = savePath.appendingPathComponent(fileName, isDirectory: true).absoluteString.removeFileHeader().urlDecoded()
-                let localizablePath = directoryPath + "Localizable.strings".urlDecoded()
+                let localizablePath = directoryPath + localizableFileName.urlDecoded()
 
                 do {
                     try Path(directoryPath).createDirectory(withIntermediateDirectories: true)
@@ -201,7 +203,7 @@ extension HomeController {
             debugPrint("---------------------------\n")
 
             stream.close()
-
+            mergeAllLanguageToOneFile(paths: paths, save: savePath)
             DispatchQueue.main.async {
                 let path = savePath.absoluteString.urlDecoded().removeFileHeader()
                 let result = self.showAlert(title: Localized.completed,
@@ -224,6 +226,33 @@ extension HomeController {
         var result: String = text
         result = text.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
         return result
+    }
+    
+    /// 将所有语言 string 合并到一个文件夹
+    private func mergeAllLanguageToOneFile(paths: [String], save: URL) {
+        var text = ""
+        for item in paths {
+            //let readFile = TextFile(path: Path(item))
+            let readFile = File<String>.init(path: Path(item))
+            let readText = try? readFile.read()
+            let components = readFile.path.components
+            let filter = components.filter{ $0.rawValue.contains(".lproj")}
+            let title = filter.first?.rawValue ?? item
+            let prefix = "\n\n//\(title)"
+            //let header
+            text.append(contentsOf: prefix + (readText ?? ""))
+        }
+        
+        do {
+            let textPath = save.absoluteString.removeFileHeader().urlDecoded() + "LocalizableAll.strings"
+            try Path(textPath).createFile()
+            let allFile = TextFile(path: Path(textPath))
+            try text |>> allFile
+        } catch {
+            debugPrint(error)
+            showAlert(title: error.localizedDescription)
+        }
+       
     }
 }
 
