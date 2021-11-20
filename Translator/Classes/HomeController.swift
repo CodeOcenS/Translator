@@ -220,11 +220,11 @@ extension HomeController {
             showAlert(title: error.localizedDescription)
         }
     }
-    
     /// 替换特殊字符 1. %s -> %@  2. " -> \"
     private func replaceSpecial(_ text: String) -> String {
         var result: String = text
-        result = text.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
+        let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
+        result = replacingStr.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
         return result
     }
     
