@@ -16,8 +16,19 @@
 		3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E342F22F56CCD00403D4C /* Main.storyboard */; };
 		3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E344322F5878000403D4C /* InfoPlist.strings */; };
 		41045B01231B808C006D6460 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41045B00231B808C006D6460 /* Keys.swift */; };
+		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
 		F95DE5B79B966AD36BB33AEE /* Pods_Translator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D79DB2BA0560492FA9D9AA6 /* Pods_Translator.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		94C2A4A12817EFA300E46F4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C0B90FC22F2D91000F16E13 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C0B910322F2D91000F16E13;
+			remoteInfo = Translator;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2E93A26B8188B159FE9F29D2 /* Pods-LoadCSV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoadCSV.release.xcconfig"; path = "Target Support Files/Pods-LoadCSV/Pods-LoadCSV.release.xcconfig"; sourceTree = "<group>"; };
@@ -39,6 +50,8 @@
 		6D0D6BF778C16B590868AA36 /* Pods-Translator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translator.debug.xcconfig"; path = "Target Support Files/Pods-Translator/Pods-Translator.debug.xcconfig"; sourceTree = "<group>"; };
 		7CEC66A805C90491D6A06B86 /* Pods_LoadCSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoadCSV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D79DB2BA0560492FA9D9AA6 /* Pods_Translator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Translator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
 		CC9B5DF5C5BCBE8D56A700FA /* Pods-LocalizedHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedHelper.debug.xcconfig"; path = "Target Support Files/Pods-LocalizedHelper/Pods-LocalizedHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		EE539BA2BD04FE5C6B007E0D /* Pods-LocalizedHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedHelper.release.xcconfig"; path = "Target Support Files/Pods-LocalizedHelper/Pods-LocalizedHelper.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +62,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F95DE5B79B966AD36BB33AEE /* Pods_Translator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94C2A49A2817EFA300E46F4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				3C0B910622F2D91000F16E13 /* Translator */,
+				94C2A49E2817EFA300E46F4A /* TranslatorTests */,
 				3C0B910522F2D91000F16E13 /* Products */,
 				04B840BC622AA5A3A4826907 /* Pods */,
 				6B91E57F9EA3223C8C798EEE /* Frameworks */,
@@ -82,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				3C0B910422F2D91000F16E13 /* Translator.app */,
+				94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,6 +150,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		94C2A49E2817EFA300E46F4A /* TranslatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */,
+			);
+			path = TranslatorTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,13 +180,31 @@
 			productReference = 3C0B910422F2D91000F16E13 /* Translator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		94C2A49C2817EFA300E46F4A /* TranslatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94C2A4A52817EFA300E46F4A /* Build configuration list for PBXNativeTarget "TranslatorTests" */;
+			buildPhases = (
+				94C2A4992817EFA300E46F4A /* Sources */,
+				94C2A49A2817EFA300E46F4A /* Frameworks */,
+				94C2A49B2817EFA300E46F4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				94C2A4A22817EFA300E46F4A /* PBXTargetDependency */,
+			);
+			name = TranslatorTests;
+			productName = TranslatorTests;
+			productReference = 94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3C0B90FC22F2D91000F16E13 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "晋先森";
 				TargetAttributes = {
@@ -167,6 +215,10 @@
 								enabled = 0;
 							};
 						};
+					};
+					94C2A49C2817EFA300E46F4A = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 3C0B910322F2D91000F16E13;
 					};
 				};
 			};
@@ -185,6 +237,7 @@
 			projectRoot = "";
 			targets = (
 				3C0B910322F2D91000F16E13 /* Translator */,
+				94C2A49C2817EFA300E46F4A /* TranslatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -198,6 +251,13 @@
 				3C6E343A22F56CCE00403D4C /* Assets.xcassets in Resources */,
 				3C6E343922F56CCE00403D4C /* Localizable.strings in Resources */,
 				3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94C2A49B2817EFA300E46F4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +318,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		94C2A4992817EFA300E46F4A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		94C2A4A22817EFA300E46F4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C0B910322F2D91000F16E13 /* Translator */;
+			targetProxy = 94C2A4A12817EFA300E46F4A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3C6E342B22F56CCD00403D4C /* Localizable.strings */ = {
@@ -422,7 +498,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meross.Translator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -445,11 +521,51 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meross.Translator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		94C2A4A32817EFA300E46F4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56W2GSJ7B9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lwf.TranslatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Translator.app/Contents/MacOS/Translator";
+			};
+			name = Debug;
+		};
+		94C2A4A42817EFA300E46F4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56W2GSJ7B9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lwf.TranslatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Translator.app/Contents/MacOS/Translator";
 			};
 			name = Release;
 		};
@@ -470,6 +586,15 @@
 			buildConfigurations = (
 				3C0B911722F2D91300F16E13 /* Debug */,
 				3C0B911822F2D91300F16E13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		94C2A4A52817EFA300E46F4A /* Build configuration list for PBXNativeTarget "TranslatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94C2A4A32817EFA300E46F4A /* Debug */,
+				94C2A4A42817EFA300E46F4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

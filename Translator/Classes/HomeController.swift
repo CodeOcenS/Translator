@@ -180,7 +180,7 @@ extension HomeController {
                     if key.isEmpty { continue }
 
                     let value = csv[title] ?? ""
-                    let result = "\"\(key)\" = \"\(replaceSpecial(value))\";"
+                    let result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
                     let path = paths[index - 1]
                     let readFile = TextFile(path: Path(path))
 
@@ -221,10 +221,14 @@ extension HomeController {
         }
     }
     /// 替换特殊字符 1. %s -> %@  2. " -> \"
-    private func replaceSpecial(_ text: String) -> String {
+    public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
-        let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
-        result = replacingStr.replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
+        //let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
+//        result = .replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
+        guard let regularExpression = try? NSRegularExpression(pattern: #"(?<!\\)""#) else {
+            return result
+        }
+        result = regularExpression.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"\\\""#)
         return result
     }
     
