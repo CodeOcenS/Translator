@@ -224,7 +224,7 @@ extension HomeController {
     public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
         //let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
-//        result = .replacingOccurrences(of: "%s", with: "%@").replacingOccurrences(of: "\"", with: "\\\"")
+        result = result.replacingOccurrences(of: "%s", with: "%@")
         guard let regularExpression = try? NSRegularExpression(pattern: #"(?<!\\)""#) else {
             return result
         }
