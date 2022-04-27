@@ -3,7 +3,6 @@
 //  TranslatorTests
 //
 //  Created by PandaEye on 2022/4/26.
-//  Copyright © 2022 晋先森. All rights reserved.
 //
 
 import XCTest
