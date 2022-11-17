@@ -44,4 +44,6 @@ extension TranslatorTests {
         let replacedString = HomeController.replaceSpecial(givenString)
         XCTAssertTrue(replacedString == #"value\"key\"引号\""#)
     }
+    
+    
 }
