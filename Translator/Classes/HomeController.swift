@@ -243,8 +243,12 @@ extension HomeController {
                 
                 let path = savePath.absoluteString.urlDecoded().removeFileHeader()
                 Log.shared.save(basePath: path)
+                var msg = "\(Localized.filePath)： \(path)"
+                if !Log.shared.logText.isEmpty {
+                    msg.append("\n 注意检查日志文件error.log，可能存在转换问题")
+                }
                 let result = self.showAlert(title: Localized.completed,
-                                            msg: "\(Localized.filePath)： \(path)",
+                                            msg: msg,
                                             doneTitle: Localized.open)
                 if (result) {
                     NSWorkspace.shared.openFile(path)
