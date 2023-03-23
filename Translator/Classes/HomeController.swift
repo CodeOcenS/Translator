@@ -220,6 +220,10 @@ extension HomeController {
             showAlert(title: error.localizedDescription)
         }
     }
+
+}
+// MARK: 额外增加方法
+extension HomeController {
     /// 替换特殊字符 1. %s -> %@  2. " -> \"
     public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
