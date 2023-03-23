@@ -16,6 +16,7 @@
 		3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E342F22F56CCD00403D4C /* Main.storyboard */; };
 		3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E344322F5878000403D4C /* InfoPlist.strings */; };
 		41045B01231B808C006D6460 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41045B00231B808C006D6460 /* Keys.swift */; };
+		9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455FF3F29CC28FA00D9EFBF /* Log.swift */; };
 		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
 		F95DE5B79B966AD36BB33AEE /* Pods_Translator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D79DB2BA0560492FA9D9AA6 /* Pods_Translator.framework */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		6D0D6BF778C16B590868AA36 /* Pods-Translator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translator.debug.xcconfig"; path = "Target Support Files/Pods-Translator/Pods-Translator.debug.xcconfig"; sourceTree = "<group>"; };
 		7CEC66A805C90491D6A06B86 /* Pods_LoadCSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoadCSV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D79DB2BA0560492FA9D9AA6 /* Pods_Translator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Translator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9455FF3F29CC28FA00D9EFBF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
 		CC9B5DF5C5BCBE8D56A700FA /* Pods-LocalizedHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedHelper.debug.xcconfig"; path = "Target Support Files/Pods-LocalizedHelper/Pods-LocalizedHelper.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				3C6E342422F56CCD00403D4C /* String+Ext.swift */,
 				3C6E342722F56CCD00403D4C /* Localized.swift */,
 				41045B00231B808C006D6460 /* Keys.swift */,
+				9455FF3F29CC28FA00D9EFBF /* Log.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			files = (
 				3C6E343622F56CCE00403D4C /* AppDelegate.swift in Sources */,
 				41045B01231B808C006D6460 /* Keys.swift in Sources */,
+				9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */,
 				3C6E343722F56CCE00403D4C /* Localized.swift in Sources */,
 				3C6E343422F56CCE00403D4C /* String+Ext.swift in Sources */,
 				3C6E343322F56CCE00403D4C /* HomeController.swift in Sources */,

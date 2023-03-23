@@ -11,6 +11,7 @@ import CSV
 import FileKit
 
 private let localizableFileName = "Localizable.strings"
+private let keyTitles = ["key","Key","KEY"];
 
 class HomeController: NSViewController {
     
@@ -140,16 +141,29 @@ extension HomeController {
         do {
             let csv = try CSVReader(stream: stream, hasHeaderRow: true)
             
-            guard let header = csv.headerRow else { return }
+            guard let header = findTitles(csv: csv) else {
+                return
+            }
             debugPrint("表头数据：\(header)\n")
-            
+            let keyIndex = header.firstIndex { title in
+                keyTitles.contains(title)
+            }
+            guard let keyIndex = keyIndex else {
+                Log.shared.error("不存在 key 列")
+                return
+            }
             var paths = [String]()
             let textPath = savePath.absoluteString.removeFileHeader().urlDecoded() + "localized.swift"
             try Path(textPath).createFile()
             let swiftFile = TextFile(path: Path(textPath))
             
             for title in header { //
-                if title == header.first { continue } // 跳过第一个 key
+                guard !title.isEmpty else {
+                    continue
+                }
+                guard !isIgnoreTitle(title) else {
+                    continue
+                }
                 
                 let fileName = (title.removeBraces() ?? "").lowercased() + ".lproj"
                 let directoryPath = savePath.appendingPathComponent(fileName, isDirectory: true).absoluteString.removeFileHeader().urlDecoded()
@@ -170,24 +184,45 @@ extension HomeController {
                 
                 var key = ""
                 var isAllow = true // 不论多少国际化语言，对于 localizedTitles.swift 文件每行只写一次。
-                
-                for (index,title) in header.enumerated() { //
-                    if title == header.first {
-                        key = csv[title] ?? ""
-                        continue } // 过滤第一个 key
+                guard let current = csv.currentRow else {
+                    Log.shared.error("\(key)后缺少行数据")
+                    return
+                }
+                // 往每个多语言添加 key value
+                var nextPathIndex = 0
+                for (index,title) in header.enumerated() {
+                    if keyTitles.contains(title) {
+                        key = current[keyIndex]
+                        continue
+                    }
+                    guard !isIgnoreTitle(title) else {
+                        continue
+                    }
+                    let value = current[index]
                     
-                    if key.isEmpty { continue }
-                    
-                    let value = csv[title] ?? ""
+                    if key.isEmpty && value.isEmpty {
+                        // 空白行
+                        continue
+                    }
+                    if value.isEmpty {
+                        Log.shared.error("\(key)缺少对应翻译")
+                    }
+                    if key.isEmpty {
+                        Log.shared.error("\(value)缺少对应key")
+                    }
                     let result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
-                    let path = paths[index - 1]
+                    let path = paths[nextPathIndex]
+                    nextPathIndex += 1
+                    if path.isEmpty {
+                        Log.shared.error("逻辑错误")
+                        assertionFailure("逻辑错误")
+                        return
+                    }
                     let readFile = TextFile(path: Path(path))
-                    
-                    let locString = "   static let \(key.localizedFormat) = \"\(key)\".localized"
-                    
                     do {
                         try result |>> readFile
                         if isAllow {
+                            let locString = "   static let \(key.localizedFormat) = \"\(key)\".localized"
                             try locString |>> swiftFile
                             isAllow = false
                         }
@@ -205,7 +240,9 @@ extension HomeController {
             mergeAllLanguageToOneFile(paths: paths, save: savePath)
             deleteSingleLanguageFile(paths: paths)
             DispatchQueue.main.async {
+                
                 let path = savePath.absoluteString.urlDecoded().removeFileHeader()
+                Log.shared.save(basePath: path)
                 let result = self.showAlert(title: Localized.completed,
                                             msg: "\(Localized.filePath)： \(path)",
                                             doneTitle: Localized.open)
@@ -217,6 +254,8 @@ extension HomeController {
             }
         } catch {
             debugPrint(error)
+            let path = savePath.absoluteString.urlDecoded().removeFileHeader()
+            Log.shared.save(basePath: path)
             showAlert(title: error.localizedDescription)
         }
     }
@@ -224,6 +263,36 @@ extension HomeController {
 }
 // MARK: 额外增加方法
 extension HomeController {
+    func isIgnoreTitle(_ title:String) -> Bool{
+        guard !title.isEmpty else {
+            return true
+        }
+            
+        var ignoreTitles = ["序号","备注"] //跳过的列
+        ignoreTitles.append(contentsOf: keyTitles)
+        return ignoreTitles.contains(title)
+    }
+    func findTitles(csv: CSVReader) -> [String]? {
+        guard let header = csv.headerRow else {
+            Log.shared.error("excel 文件 header不存在")
+            return nil
+        }
+        let count = header.filter {keyTitles.contains($0)}.count
+        if count > 0 {
+            return header
+        }
+        while csv.next() != nil {
+            guard let current = csv.currentRow else {
+                Log.shared.error("excel 文件 找不到目标 header")
+                return nil
+            }
+            let count = current.filter {keyTitles.contains($0)}.count
+            if count > 0 {
+                return current
+            }
+        }
+        return nil
+    }
     /// 替换特殊字符 1. %s -> %@  2. " -> \"
     public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
@@ -276,9 +345,13 @@ extension HomeController {
             if #available(macOS 13.0, *) {
                 pathStr = item.replacing("/\(localizableFileName)", with: "", maxReplacements: 1)
             } else {
-                // Fallback on earlier versions
+                
+            }
+            guard !pathStr.isEmpty else {
+                return
             }
             let path = Path(pathStr);
+           
             do {
                 try path.deleteFile()
             } catch let error {
