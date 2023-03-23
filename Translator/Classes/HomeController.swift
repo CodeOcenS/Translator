@@ -26,7 +26,6 @@ class HomeController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setLocalizedTitles()
         
         let url = UserDefaults.standard.url(forKey: Keys.savePath)
@@ -225,11 +224,19 @@ extension HomeController {
     public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
         //let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
+        // %s 替换为 %@
         result = result.replacingOccurrences(of: "%s", with: "%@")
+        // 处理value 中有引号问题
         guard let regularExpression = try? NSRegularExpression(pattern: #"(?<!\\)""#) else {
             return result
         }
         result = regularExpression.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"\\\""#)
+        // 处理 {数字} 为 %@
+        let pattern2 = #"\{\d{1,2}\}"#
+        guard let regex2 = try? NSRegularExpression(pattern: pattern2) else {
+            return result
+        }
+        result = regex2.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"%@"#)
         return result
     }
     
