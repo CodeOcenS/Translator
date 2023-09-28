@@ -17,6 +17,7 @@ class HomeController: NSViewController {
     
     @IBOutlet weak var savePathField: NSTextField!
     @IBOutlet weak var titleLabel: NSTextField!
+    @IBOutlet weak var commentsTextField: NSTextField!
     @IBOutlet weak var selectCSVButton: NSButton!
     @IBOutlet weak var setStorageButton: NSButton!
     
@@ -28,7 +29,6 @@ class HomeController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLocalizedTitles()
-        
         let url = UserDefaults.standard.url(forKey: Keys.savePath)
         updateView(with: url)
         
@@ -205,7 +205,7 @@ extension HomeController {
                         continue
                     }
                     if value.isEmpty {
-                        Log.shared.error("\(key)缺少对应翻译")
+                        Log.shared.error("\(key)缺少\(title)翻译")
                     }
                     if key.isEmpty {
                         Log.shared.error("\(value)缺少对应key")
@@ -245,7 +245,7 @@ extension HomeController {
                 Log.shared.save(basePath: path)
                 var msg = "\(Localized.filePath)： \(path)"
                 if !Log.shared.logText.isEmpty {
-                    msg.append("\n 注意检查日志文件error.log，可能存在转换问题")
+                    msg.append("\n⚠️注意检查日志文件error.log，可能存在转换问题")
                 }
                 let result = self.showAlert(title: Localized.completed,
                                             msg: msg,
@@ -327,7 +327,10 @@ extension HomeController {
             let components = readFile.path.components
             let filter = components.filter{ $0.rawValue.contains(".lproj")}
             let title = filter.first?.rawValue ?? item
-            let prefix = "\n\n//\(title)"
+            var prefix = "\n\n//\(title)\n"
+            if (!commentsTextField.stringValue.isEmpty) {
+                prefix += "\n// \(commentsTextField.stringValue)"
+            }
             //let header
             text.append(contentsOf: prefix + (readText ?? ""))
         }
@@ -378,17 +381,18 @@ extension HomeController {
             
             let csv = try CSVWriter(stream: stream)
             
-            try csv.write(row: ["Key","zh-Hant(中文)","en（英文）","ko（韩文)","ja（日文）"])
-            try csv.write(row: ["app.key1","CN 1","EN 1","KO 1","JP 1"])
-            try csv.write(row: ["app.key2","CN 2","EN 2","KO 2","JP 2"])
-            try csv.write(row: ["app.key3","CN 3","EN 3","KO 3","JP 3"])
+            try csv.write(row: ["Key","en","zh-Hant","ko","ja"])
+            try csv.write(row: ["app.key1","EN 1","CN 1","KO 1","JA 1"])
+            try csv.write(row: ["app.key2","EN 2","CN 2","KO 2","JA 2"])
+            try csv.write(row: ["app.key3","EN 3","CN 3","KO 3","JA 3"])
             
             csv.stream.close()
             
             debugPrint("\(Localized.createdSuccessfully)")
             
             DispatchQueue.main.async {
-                NSWorkspace.shared.openFile(csvPath)
+                let csvUrl = URL(fileURLWithPath: csvPath)
+                NSWorkspace.shared.open(csvUrl)
             }
         } catch {
             showAlert(title: "\(Localized.creationFailed)：\(error)")
