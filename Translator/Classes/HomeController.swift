@@ -9,6 +9,7 @@
 import Cocoa
 import CSV
 import FileKit
+import UniformTypeIdentifiers
 
 private let localizableFileName = "Localizable.strings"
 private let keyTitles = ["key","Key","KEY"];
@@ -300,7 +301,13 @@ extension HomeController {
     /// 替换特殊字符 1. %s -> %@  2. " -> \"
     public static func replaceSpecial(_ text: String) -> String {
         var result: String = text
-        //let replacingStr = text.replacingOccurrences(of: "％s", with: "%@") // 处理日语 百分号
+        // 将全角符号替换为半角
+        result = result.replacingOccurrences(of: "％", with: "%")
+        result = result.replacingOccurrences(of: "＠", with: "@")
+        result = result.replacingOccurrences(of: "｛", with: "{")
+        result = result.replacingOccurrences(of: "｝", with: "}")
+        
+        //let replacingStr = text.replacingOccurrences(of: "%s", with: "%@") // 处理日语 百分号
         // %s 替换为 %@
         result = result.replacingOccurrences(of: "%s", with: "%@")
         // 处理value 中有引号问题

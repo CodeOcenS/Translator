@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jGA-0Y-lOj">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jGA-0Y-lOj">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -679,35 +679,35 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PMu-2o-xXX">
-                                <rect key="frame" x="19" y="73" width="122" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="PFE-9E-4l8"/>
-                                    <constraint firstAttribute="height" constant="35" id="voO-r5-LlJ"/>
-                                </constraints>
+                                <rect key="frame" x="18" y="72" width="124" height="40"/>
                                 <buttonCell key="cell" type="squareTextured" title="选择 .csv" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="SgE-mg-ixs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="PFE-9E-4l8"/>
+                                    <constraint firstAttribute="height" constant="35" id="voO-r5-LlJ"/>
+                                </constraints>
                                 <connections>
                                     <action selector="openButtonTapped:" target="5gI-5U-AMq" id="wDu-t3-1hP"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cmg-3Y-CBq">
-                                <rect key="frame" x="19" y="128" width="122" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="2Yf-Pc-8lt"/>
-                                    <constraint firstAttribute="height" constant="35" id="qLf-yJ-UGG"/>
-                                </constraints>
+                                <rect key="frame" x="18" y="127" width="124" height="40"/>
                                 <buttonCell key="cell" type="squareTextured" title="存储路径" bezelStyle="texturedSquare" image="buttonCell:bC9-ua-ztb:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bC9-ua-ztb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="2Yf-Pc-8lt"/>
+                                    <constraint firstAttribute="height" constant="35" id="qLf-yJ-UGG"/>
+                                </constraints>
                                 <connections>
                                     <action selector="saveButton:" target="5gI-5U-AMq" id="W3l-ij-tSo"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
                                 <rect key="frame" x="150" y="130" width="315" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" drawsBackground="YES" id="BNl-Sv-H5j">
                                     <font key="font" metaFont="system"/>
@@ -715,16 +715,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K5Y-4z-p5Z">
-                                <rect key="frame" x="338" y="71" width="125" height="42"/>
-                                <buttonCell key="cell" type="bevel" title="  示例 .csv 格式  " bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7EA-65-zPH">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="previewButtonTapped:" target="5gI-5U-AMq" id="95T-RZ-2nC"/>
-                                </connections>
-                            </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-TE-Xxc">
                                 <rect key="frame" x="205" y="292" width="70" height="70"/>
                                 <constraints>
@@ -733,7 +723,7 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="logo2" id="xEX-CX-LDE"/>
                             </imageView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
                                 <rect key="frame" x="28" y="240" width="424" height="32"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Translator 可以帮助你快速的将 `.csv` 表格内容转为 iOS项目中对应 国家的. lproj 文件，以下为使用步骤：" id="Cc7-nU-5Mv">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -742,32 +732,32 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-YI-48S">
-                                <rect key="frame" x="19" y="28" width="122" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="S1z-O5-Gf1"/>
-                                    <constraint firstAttribute="width" constant="120" id="wRX-0U-Ao4"/>
-                                </constraints>
+                                <rect key="frame" x="18" y="27" width="124" height="40"/>
                                 <buttonCell key="cell" type="squareTextured" title="开始解析" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="pe8-58-rH4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="S1z-O5-Gf1"/>
+                                    <constraint firstAttribute="width" constant="120" id="wRX-0U-Ao4"/>
+                                </constraints>
                                 <connections>
                                     <action selector="parseButtonTapped:" target="5gI-5U-AMq" id="J0s-s3-IeW"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFE-SN-vvi">
-                                <rect key="frame" x="19" y="183" width="122" height="38"/>
+                                <rect key="frame" x="18" y="182" width="124" height="40"/>
+                                <buttonCell key="cell" type="squareTextured" title="多语言注释(可选)" bezelStyle="texturedSquare" image="buttonCell:hDr-xI-1m0:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDr-xI-1m0">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="8Gk-vx-lxL"/>
                                     <constraint firstAttribute="width" constant="120" id="Jcu-sg-Ybv"/>
                                 </constraints>
-                                <buttonCell key="cell" type="squareTextured" title="多语言注释(可选)" bezelStyle="texturedSquare" image="buttonCell:hDr-xI-1m0:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDr-xI-1m0">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
-                                </buttonCell>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
                                 <rect key="frame" x="150" y="185" width="310" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="请输入注释块" drawsBackground="YES" id="23d-2y-nu7">
                                     <font key="font" metaFont="system"/>
@@ -780,11 +770,9 @@
                             <constraint firstItem="TyV-c9-G0C" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="30" id="0YZ-nb-vf0"/>
                             <constraint firstItem="gSR-YI-48S" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="0vC-6C-y3u"/>
                             <constraint firstAttribute="trailing" secondItem="TyV-c9-G0C" secondAttribute="trailing" constant="30" id="5Uy-Bg-atl"/>
-                            <constraint firstItem="K5Y-4z-p5Z" firstAttribute="height" secondItem="PMu-2o-xXX" secondAttribute="height" id="8kY-MX-xlb"/>
                             <constraint firstItem="cFE-SN-vvi" firstAttribute="top" secondItem="TyV-c9-G0C" secondAttribute="bottom" constant="20" id="CZk-gV-8IF"/>
                             <constraint firstAttribute="bottom" secondItem="gSR-YI-48S" secondAttribute="bottom" constant="30" id="JqQ-Mj-Xgu"/>
                             <constraint firstItem="pmD-TE-Xxc" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="30" id="Ka2-YQ-Gfc"/>
-                            <constraint firstItem="K5Y-4z-p5Z" firstAttribute="top" secondItem="h8H-Ie-4ZI" secondAttribute="bottom" constant="20" id="Lhm-8W-mKw"/>
                             <constraint firstItem="cmg-3Y-CBq" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="QNY-s6-MB3"/>
                             <constraint firstItem="cFE-SN-vvi" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="Uh4-Lg-w0T"/>
                             <constraint firstItem="PMu-2o-xXX" firstAttribute="top" secondItem="cmg-3Y-CBq" secondAttribute="bottom" constant="20" id="Wmt-zh-3rT"/>
@@ -794,7 +782,6 @@
                             <constraint firstItem="gSR-YI-48S" firstAttribute="top" secondItem="PMu-2o-xXX" secondAttribute="bottom" constant="10" id="cdL-dp-38H"/>
                             <constraint firstItem="DYT-07-TJX" firstAttribute="leading" secondItem="cFE-SN-vvi" secondAttribute="trailing" constant="10" id="epk-1T-h5q"/>
                             <constraint firstItem="TyV-c9-G0C" firstAttribute="top" secondItem="pmD-TE-Xxc" secondAttribute="bottom" constant="20" id="g4G-tQ-Xd7"/>
-                            <constraint firstAttribute="trailing" secondItem="K5Y-4z-p5Z" secondAttribute="trailing" constant="20" id="gKp-mU-PvP"/>
                             <constraint firstItem="cmg-3Y-CBq" firstAttribute="top" secondItem="cFE-SN-vvi" secondAttribute="bottom" constant="20" id="kM7-GD-nz1"/>
                             <constraint firstAttribute="trailing" secondItem="h8H-Ie-4ZI" secondAttribute="trailing" constant="15" id="lCk-B8-c1C"/>
                             <constraint firstItem="DYT-07-TJX" firstAttribute="height" secondItem="cFE-SN-vvi" secondAttribute="height" id="nPS-9S-7L2"/>
@@ -807,7 +794,6 @@
                     <connections>
                         <outlet property="commentsTextField" destination="DYT-07-TJX" id="Ftc-Oh-9Qj"/>
                         <outlet property="parseButton" destination="gSR-YI-48S" id="bJs-xc-GUG"/>
-                        <outlet property="preViewButton" destination="K5Y-4z-p5Z" id="ei9-nT-fqD"/>
                         <outlet property="savePathField" destination="h8H-Ie-4ZI" id="Li9-08-aHW"/>
                         <outlet property="selectCSVButton" destination="PMu-2o-xXX" id="L90-Ur-AHX"/>
                         <outlet property="setStorageButton" destination="cmg-3Y-CBq" id="DSx-Hd-Qgb"/>

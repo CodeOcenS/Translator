@@ -50,6 +50,12 @@ extension TranslatorTests {
         XCTAssertTrue(replacedString3 == "%@替换%@")
     }
     
+    func testQuanjiao() {
+        let givenString3 = "全角％＠替换｛11｝"
+        let replacedString3 = HomeController.replaceSpecial(givenString3)
+        XCTAssertTrue(replacedString3 == "全角%@替换%@")
+    }
+    
     
     
 }
