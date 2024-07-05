@@ -76,8 +76,7 @@ class HomeController: NSViewController {
     }
     
     @IBAction func parseButtonTapped(_ sender: NSButton) {
-        
-        
+        Log.shared.clear();
         guard let path = localPath else {
             showAlert(title: Localized.pleaseSetTheStorageDirectoryFirst)
             return }
@@ -252,7 +251,8 @@ extension HomeController {
                                             msg: msg,
                                             doneTitle: Localized.open)
                 if (result) {
-                    NSWorkspace.shared.openFile(path)
+                    NSWorkspace.shared.open(URL(fileURLWithPath: path))
+                    //NSWorkspace.shared.openFile(path)
                 } else {
                     debugPrint("打开失败：\(savePath.absoluteString)")
                 }

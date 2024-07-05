@@ -14,6 +14,9 @@ struct Log {
     private init() {
         
     }
+    mutating func clear() {
+        self.logText = "";
+    }
     mutating func error(_ text: String) {
         if !logText.isEmpty {
             logText.append("\n")

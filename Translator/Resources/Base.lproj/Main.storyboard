@@ -679,7 +679,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PMu-2o-xXX">
-                                <rect key="frame" x="18" y="72" width="124" height="40"/>
+                                <rect key="frame" x="17" y="71" width="126" height="42"/>
                                 <buttonCell key="cell" type="squareTextured" title="选择 .csv" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="SgE-mg-ixs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -694,7 +694,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cmg-3Y-CBq">
-                                <rect key="frame" x="18" y="127" width="124" height="40"/>
+                                <rect key="frame" x="17" y="126" width="126" height="42"/>
                                 <buttonCell key="cell" type="squareTextured" title="存储路径" bezelStyle="texturedSquare" image="buttonCell:bC9-ua-ztb:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bC9-ua-ztb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -707,7 +707,7 @@
                                     <action selector="saveButton:" target="5gI-5U-AMq" id="W3l-ij-tSo"/>
                                 </connections>
                             </button>
-                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
                                 <rect key="frame" x="150" y="130" width="315" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" drawsBackground="YES" id="BNl-Sv-H5j">
                                     <font key="font" metaFont="system"/>
@@ -723,7 +723,7 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="logo2" id="xEX-CX-LDE"/>
                             </imageView>
-                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
                                 <rect key="frame" x="28" y="240" width="424" height="32"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Translator 可以帮助你快速的将 `.csv` 表格内容转为 iOS项目中对应 国家的. lproj 文件，以下为使用步骤：" id="Cc7-nU-5Mv">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -732,7 +732,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-YI-48S">
-                                <rect key="frame" x="18" y="27" width="124" height="40"/>
+                                <rect key="frame" x="17" y="26" width="126" height="42"/>
                                 <buttonCell key="cell" type="squareTextured" title="开始解析" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="pe8-58-rH4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -747,7 +747,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFE-SN-vvi">
-                                <rect key="frame" x="18" y="182" width="124" height="40"/>
+                                <rect key="frame" x="17" y="181" width="126" height="42"/>
                                 <buttonCell key="cell" type="squareTextured" title="多语言注释(可选)" bezelStyle="texturedSquare" image="buttonCell:hDr-xI-1m0:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDr-xI-1m0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -757,7 +757,7 @@
                                     <constraint firstAttribute="width" constant="120" id="Jcu-sg-Ybv"/>
                                 </constraints>
                             </button>
-                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
                                 <rect key="frame" x="150" y="185" width="310" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="请输入注释块" drawsBackground="YES" id="23d-2y-nu7">
                                     <font key="font" metaFont="system"/>
