@@ -2,8 +2,6 @@
 //  HomeController.swift
 //  Translator
 //
-//  Created by jinxiansen on 2019/8/1.
-//  Copyright © 2019 晋先森. All rights reserved.
 //
 
 import Cocoa
@@ -12,7 +10,8 @@ import FileKit
 import UniformTypeIdentifiers
 
 private let localizableFileName = "Localizable.strings"
-private let keyTitles = ["key","Key","KEY"];
+private let keyTitles = ["key","Key","KEY"]
+private let keyBeiZhu = "备注"
 
 class HomeController: NSViewController {
     
@@ -152,6 +151,10 @@ extension HomeController {
                 Log.shared.error("不存在 key 列")
                 return
             }
+            // 备注Index
+            var descrColumnIndex = header.firstIndex { title in
+                return isDescrTitle(title)
+            };
             var paths = [String]()
             let textPath = savePath.absoluteString.removeFileHeader().urlDecoded() + "localized.swift"
             try Path(textPath).createFile()
@@ -190,6 +193,10 @@ extension HomeController {
                 }
                 // 往每个多语言添加 key value
                 var nextPathIndex = 0
+                var descr = "";
+                if let index = descrColumnIndex {
+                    descr = current[index]
+                }
                 for (index,title) in header.enumerated() {
                     if keyTitles.contains(title) {
                         key = current[keyIndex]
@@ -210,7 +217,10 @@ extension HomeController {
                     if key.isEmpty {
                         Log.shared.error("\(value)缺少对应key")
                     }
-                    let result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
+                    var result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
+                    if (descr.count > 0) {
+                        result = "// \(descr)\n" + result
+                    }
                     let path = paths[nextPathIndex]
                     nextPathIndex += 1
                     if path.isEmpty {
@@ -268,12 +278,23 @@ extension HomeController {
 }
 // MARK: 额外增加方法
 extension HomeController {
+    /// 是否是备注列
+    func isDescrTitle(_ title: String) -> Bool {
+        let title = title.trimmingCharacters(in: .whitespaces);
+        guard !title.isEmpty else {
+            return false
+        }
+       return title == keyBeiZhu
+    }
     func isIgnoreTitle(_ title:String) -> Bool{
+        let title = title.trimmingCharacters(in: .whitespaces);
         guard !title.isEmpty else {
             return true
         }
-            
-        var ignoreTitles = ["序号","备注"] //跳过的列
+        guard !isDescrTitle(title) else {
+            return true;
+        }
+        var ignoreTitles = ["序号"] //跳过的列
         ignoreTitles.append(contentsOf: keyTitles)
         return ignoreTitles.contains(title)
     }
@@ -315,12 +336,12 @@ extension HomeController {
             return result
         }
         result = regularExpression.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"\\\""#)
-        // 处理 {数字} 为 %@
-        let pattern2 = #"\{\d{1,2}\}"#
-        guard let regex2 = try? NSRegularExpression(pattern: pattern2) else {
-            return result
-        }
-        result = regex2.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"%@"#)
+        // 处理 {数字} 为 %@ (保留{数组}格式2024.8.13)
+//        let pattern2 = #"\{\d{1,2}\}"#
+//        guard let regex2 = try? NSRegularExpression(pattern: pattern2) else {
+//            return result
+//        }
+//        result = regex2.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"%@"#)
         return result
     }
     

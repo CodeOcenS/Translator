@@ -2,8 +2,6 @@
 //  Localized.swift
 //  Translator
 //
-//  Created by jinxiansen on 2019/8/3.
-//  Copyright © 2019 晋先森. All rights reserved.
 //
 
 

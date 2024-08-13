@@ -2,8 +2,6 @@
 //  Log.swift
 //  Translator
 //
-//  Created by PandaEye on 2023/3/23.
-//  Copyright © 2023 晋先森. All rights reserved.
 //
 
 import Foundation

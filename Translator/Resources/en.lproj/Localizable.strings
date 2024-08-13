@@ -19,6 +19,6 @@
 "File Path" = "File Path";
 "Write failed" = "Write failed";
 "Done" = "Done";
-"App Desc" = "Translator can help you quickly convert the contents of the `.csv` table into the .lproj file of the corresponding country in the iOS project. The following are the steps to use: \n• Multi-language annotation (optional): used before each multi-language Add comments;\n• First set the storage directory;\n• Then select the .csv file. The file format must be consistent with the format generated in the lower right corner;\n• Finally, click to start parsing. \n\nAutomatic operation\n1. Automatically replace %s with %@;\n2. Automatically escape English quotes, that is: \"convert\\\";\n3. Support replacing {number} with %@";
+"App Desc" = "Translator can help you quickly convert the contents of the `.csv` table into the .lproj file of the corresponding country in the iOS project. The following are the steps to use: \n• Multi-language annotation (optional): used before each multi-language Add comments;\n• First set the storage directory;\n• Then select the .csv file. The file format must be consistent with the format generated in the lower right corner;\n• Finally, click to start parsing. \n\nAutomatic operation\n1. Automatically replace %s with %@;\n2. Automatically escape English quotes, that is: \"convert\\\";\n3. Automatically process %@{} full Angle as half Angle";
 "Start parsing" = "Start parsing";
 "Open" = "Open";

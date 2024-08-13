@@ -2,8 +2,6 @@
 //  String+Ext.swift
 //  Translator
 //
-//  Created by jinxiansen on 2019/8/1.
-//  Copyright © 2019 晋先森. All rights reserved.
 //
 
 import Foundation
