@@ -219,7 +219,12 @@ extension HomeController {
                     }
                     var result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
                     if (descr.count > 0) {
-                        result = "// \(descr)\n" + result
+                        let describeArray = descr.components(separatedBy: "\n")
+                        var describe = ""
+                        for (index, item) in describeArray.enumerated() {
+                            describe.append("// \(item)\(index == describeArray.count - 1 ? "" : "\n")")
+                        }
+                        result = "\(describe)\n" + result
                     }
                     let path = paths[nextPathIndex]
                     nextPathIndex += 1

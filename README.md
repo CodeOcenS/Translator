@@ -66,12 +66,16 @@ extension String {
 
 - ...
 
+## TODO
 
-## 🖌 反馈
+- [ ] bug: 如果 excel 中备注有多行，转换为注释的时候，第二行没有添加,会导致 string文件异常。 
 
-* 如果以上功能并不能满足你的需求，可以下载源码进行修改并 Export app；
-* 如果你有更好的建议，可在本项目下提一个 [Issue](https://github.com/Jinxiansen/Translator/issues/new) ，我会尝试根据你的需要新增功能；
-* 如果你有其他的想法，可以来一发：hi@jinxiansen.com 。
+```
+// 备注第一行
+备注第二行
+"Key1" = "value1";
+```
+
 
 
 ## 📄 License	
