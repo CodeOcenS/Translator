@@ -64,14 +64,11 @@ class HomeController: NSViewController {
     
     
     @IBAction func saveButton(_ sender: NSButton) {
-        
-        let result = savePanel.runModal()
-        guard result == .OK, let url = savePanel.directoryURL else {
-            //            showAlert(title: Localized.selectTheCsvFile)
-            return }
-        
-        updateView(with: url)
-        UserDefaults.standard.set(url, forKey: Keys.savePath)
+        savePanel.begin { response in
+            guard response == .OK, let url = self.savePanel.urls.first else { return }
+            self.updateView(with: url)
+            UserDefaults.standard.set(url, forKey: Keys.savePath)
+        }
     }
     
     @IBAction func parseButtonTapped(_ sender: NSButton) {
@@ -109,7 +106,10 @@ class HomeController: NSViewController {
         
         let panel = NSOpenPanel()
         panel.title = Localized.selectTheCsvFile
-        panel.allowedFileTypes = ["csv"]
+        //panel.allowedFileTypes = ["csv"]
+        if let csvType = UTType("public.comma-separated-values-text") {
+            panel.allowedContentTypes = [csvType];
+        }
         panel.isExtensionHidden = false
         panel.allowsMultipleSelection = false
         
@@ -152,7 +152,7 @@ extension HomeController {
                 return
             }
             // 备注Index
-            var descrColumnIndex = header.firstIndex { title in
+            let descrColumnIndex = header.firstIndex { title in
                 return isDescrTitle(title)
             };
             var paths = [String]()

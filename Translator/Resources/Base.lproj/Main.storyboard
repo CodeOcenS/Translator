@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jGA-0Y-lOj">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jGA-0Y-lOj">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -707,7 +707,7 @@
                                     <action selector="saveButton:" target="5gI-5U-AMq" id="W3l-ij-tSo"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h8H-Ie-4ZI">
                                 <rect key="frame" x="150" y="130" width="315" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" drawsBackground="YES" id="BNl-Sv-H5j">
                                     <font key="font" metaFont="system"/>
@@ -723,7 +723,7 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="logo2" id="xEX-CX-LDE"/>
                             </imageView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TyV-c9-G0C">
                                 <rect key="frame" x="28" y="240" width="424" height="32"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Translator 可以帮助你快速的将 `.csv` 表格内容转为 iOS项目中对应 国家的. lproj 文件，以下为使用步骤：" id="Cc7-nU-5Mv">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -757,7 +757,7 @@
                                     <constraint firstAttribute="width" constant="120" id="Jcu-sg-Ybv"/>
                                 </constraints>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-07-TJX">
                                 <rect key="frame" x="150" y="185" width="310" height="35"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="请输入注释块" drawsBackground="YES" id="23d-2y-nu7">
                                     <font key="font" metaFont="system"/>
