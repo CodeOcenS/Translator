@@ -360,7 +360,7 @@ extension HomeController {
             let components = readFile.path.components
             let filter = components.filter{ $0.rawValue.contains(".lproj")}
             let title = filter.first?.rawValue ?? item
-            var prefix = "\n\n//\(title)\n"
+            var prefix = "\n\n// MARK: \(title)\n"
             if (!commentsTextField.stringValue.isEmpty) {
                 prefix += "\n// \(commentsTextField.stringValue)"
             }
