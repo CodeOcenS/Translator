@@ -5,3 +5,28 @@
   Created by PandaEye on 2025/2/26.
   Copyright © 2025 晋先森. All rights reserved.
 */
+
+"key1" = "value1";
+"key2" = "value2"; // key2
+"key3" = "value3";  // key3
+
+/// eee
+"key4" = "value4";  // key4
+"key5" = "value5";  /* key5
+*/
+/* 多行注释1
+"key6" = "value6";  // key6
+*/
+/* 多行注释2
+*"key7" = "value7";  // key7
+*/
+/*! 多行注释3
+*"key8" = "value8";  // key8
+*/
+"Select a maximum of %zd photos" = "Maximum %zd  photos supported";
+"Select a minimum of %zd photos" = "Please select at least %zd photo";
+"Allow %@ to access your album in \"Settings -> Privacy -> Photos\"" = "Please allow %@ to access your photo in Settings > Privacy > Photos on iPhone.";
+"Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\"" = "Please allow %@ to access your camera in iPhone's Settings > Privacy > Camera";
+"Selected for %ld seconds" = "Selected %ld seconds";
+"Allow %@ to access your all photos" = "%@ can only access selected photos. Allow access \"All Photos\"";
+"Add more accessible photos" = "Add more \n accessible photos";
