@@ -19,6 +19,8 @@
 		9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455FF3F29CC28FA00D9EFBF /* Log.swift */; };
 		947CD8A22D6F1CFC00847AED /* LocalizableStringsTools in Frameworks */ = {isa = PBXBuildFile; productRef = 947CD8A12D6F1CFC00847AED /* LocalizableStringsTools */; };
 		947CD8A52D6F220C00847AED /* Test.strings in Resources */ = {isa = PBXBuildFile; fileRef = 947CD8A32D6F220C00847AED /* Test.strings */; };
+		947CD8AE2D70118C00847AED /* LanguageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AD2D70118C00847AED /* LanguageItem.swift */; };
+		947CD8B02D70120300847AED /* LanguageFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AF2D70120300847AED /* LanguageFileModel.swift */; };
 		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
 		94F107302D534D5F00CF6631 /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94F1072F2D534D5F00CF6631 /* FileKit */; };
 		94F107322D534D6400CF6631 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 94F107312D534D6400CF6631 /* CSV */; };
@@ -50,6 +52,8 @@
 		41045B00231B808C006D6460 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		9455FF3F29CC28FA00D9EFBF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		947CD8A42D6F220C00847AED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Test.strings; sourceTree = "<group>"; };
+		947CD8AD2D70118C00847AED /* LanguageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageItem.swift; sourceTree = "<group>"; };
+		947CD8AF2D70120300847AED /* LanguageFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFileModel.swift; sourceTree = "<group>"; };
 		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +101,7 @@
 		3C0B910622F2D91000F16E13 /* Translator */ = {
 			isa = PBXGroup;
 			children = (
+				947CD8A92D70111200847AED /* CSVHelper */,
 				3C6E342222F56CCD00403D4C /* Classes */,
 				3C6E342822F56CCD00403D4C /* Resources */,
 			);
@@ -127,6 +132,23 @@
 				947CD8A32D6F220C00847AED /* Test.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		947CD8A92D70111200847AED /* CSVHelper */ = {
+			isa = PBXGroup;
+			children = (
+				947CD8AC2D70115C00847AED /* Models */,
+			);
+			path = CSVHelper;
+			sourceTree = "<group>";
+		};
+		947CD8AC2D70115C00847AED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				947CD8AD2D70118C00847AED /* LanguageItem.swift */,
+				947CD8AF2D70120300847AED /* LanguageFileModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		94C2A49E2817EFA300E46F4A /* TranslatorTests */ = {
@@ -190,7 +212,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = "晋先森";
+				ORGANIZATIONNAME = PandaEye;
 				TargetAttributes = {
 					3C0B910322F2D91000F16E13 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -258,6 +280,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				947CD8B02D70120300847AED /* LanguageFileModel.swift in Sources */,
+				947CD8AE2D70118C00847AED /* LanguageItem.swift in Sources */,
 				3C6E343622F56CCE00403D4C /* AppDelegate.swift in Sources */,
 				41045B01231B808C006D6460 /* Keys.swift in Sources */,
 				9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */,
