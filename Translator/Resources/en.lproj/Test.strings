@@ -3,7 +3,7 @@
   Translator
 
   Created by PandaEye on 2025/2/26.
-  Copyright © 2025 晋先森. All rights reserved.
+  Copyright © 2025 PandaEye. All rights reserved.
 */
 
 "key1" = "value1";
@@ -12,6 +12,12 @@
 
 /// eee
 "key4" = "value4";  // key4
+// 插入的字符串
+"key21" = "value21";
+"key22" = "value22";
+"key23" = "value23";
+
+
 "key5" = "value5";  /* key5
 */
 /* 多行注释1

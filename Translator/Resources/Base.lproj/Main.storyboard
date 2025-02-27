@@ -679,7 +679,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PMu-2o-xXX">
-                                <rect key="frame" x="17" y="71" width="126" height="42"/>
+                                <rect key="frame" x="19" y="73" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="选择 .csv" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="SgE-mg-ixs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -694,7 +694,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cmg-3Y-CBq">
-                                <rect key="frame" x="17" y="126" width="126" height="42"/>
+                                <rect key="frame" x="19" y="128" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="存储路径" bezelStyle="texturedSquare" image="buttonCell:bC9-ua-ztb:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bC9-ua-ztb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -732,7 +732,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-YI-48S">
-                                <rect key="frame" x="17" y="26" width="126" height="42"/>
+                                <rect key="frame" x="19" y="28" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="开始解析" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="pe8-58-rH4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -747,7 +747,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFE-SN-vvi">
-                                <rect key="frame" x="17" y="181" width="126" height="42"/>
+                                <rect key="frame" x="19" y="183" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="多语言注释(可选)" bezelStyle="texturedSquare" image="buttonCell:hDr-xI-1m0:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDr-xI-1m0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -765,6 +765,16 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xt7-yS-3s6">
+                                <rect key="frame" x="405" y="23" width="60" height="32"/>
+                                <buttonCell key="cell" type="push" title="Test" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ne2-94-yzZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="TestButtonTapped:" target="5gI-5U-AMq" id="5Mc-YT-LAJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="TyV-c9-G0C" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="30" id="0YZ-nb-vf0"/>
@@ -783,9 +793,11 @@
                             <constraint firstItem="DYT-07-TJX" firstAttribute="leading" secondItem="cFE-SN-vvi" secondAttribute="trailing" constant="10" id="epk-1T-h5q"/>
                             <constraint firstItem="TyV-c9-G0C" firstAttribute="top" secondItem="pmD-TE-Xxc" secondAttribute="bottom" constant="20" id="g4G-tQ-Xd7"/>
                             <constraint firstItem="cmg-3Y-CBq" firstAttribute="top" secondItem="cFE-SN-vvi" secondAttribute="bottom" constant="20" id="kM7-GD-nz1"/>
+                            <constraint firstAttribute="bottom" secondItem="Xt7-yS-3s6" secondAttribute="bottom" constant="30" id="kT3-cb-PqS"/>
                             <constraint firstAttribute="trailing" secondItem="h8H-Ie-4ZI" secondAttribute="trailing" constant="15" id="lCk-B8-c1C"/>
                             <constraint firstItem="DYT-07-TJX" firstAttribute="height" secondItem="cFE-SN-vvi" secondAttribute="height" id="nPS-9S-7L2"/>
                             <constraint firstItem="PMu-2o-xXX" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="oRa-ma-Ixe"/>
+                            <constraint firstAttribute="trailing" secondItem="Xt7-yS-3s6" secondAttribute="trailing" constant="22" id="qhk-cK-nAv"/>
                             <constraint firstItem="DYT-07-TJX" firstAttribute="centerY" secondItem="cFE-SN-vvi" secondAttribute="centerY" id="tqh-rj-osD"/>
                             <constraint firstAttribute="trailing" secondItem="DYT-07-TJX" secondAttribute="trailing" constant="20" id="veK-A4-gzN"/>
                             <constraint firstItem="pmD-TE-Xxc" firstAttribute="centerX" secondItem="ERx-hH-rdd" secondAttribute="centerX" id="zkG-FM-V8g"/>
