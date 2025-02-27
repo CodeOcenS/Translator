@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,8 @@
 		3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E344322F5878000403D4C /* InfoPlist.strings */; };
 		41045B01231B808C006D6460 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41045B00231B808C006D6460 /* Keys.swift */; };
 		9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455FF3F29CC28FA00D9EFBF /* Log.swift */; };
+		947CD8A22D6F1CFC00847AED /* LocalizableStringsTools in Frameworks */ = {isa = PBXBuildFile; productRef = 947CD8A12D6F1CFC00847AED /* LocalizableStringsTools */; };
+		947CD8A52D6F220C00847AED /* Test.strings in Resources */ = {isa = PBXBuildFile; fileRef = 947CD8A32D6F220C00847AED /* Test.strings */; };
 		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
 		94F107302D534D5F00CF6631 /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94F1072F2D534D5F00CF6631 /* FileKit */; };
 		94F107322D534D6400CF6631 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 94F107312D534D6400CF6631 /* CSV */; };
@@ -47,6 +49,7 @@
 		3C6E344422F5878100403D4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		41045B00231B808C006D6460 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		9455FF3F29CC28FA00D9EFBF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		947CD8A42D6F220C00847AED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Test.strings; sourceTree = "<group>"; };
 		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +61,7 @@
 			files = (
 				94F107302D534D5F00CF6631 /* FileKit in Frameworks */,
 				94F107322D534D6400CF6631 /* CSV in Frameworks */,
+				947CD8A22D6F1CFC00847AED /* LocalizableStringsTools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +124,7 @@
 				3C6E342E22F56CCD00403D4C /* Assets.xcassets */,
 				3C6E342F22F56CCD00403D4C /* Main.storyboard */,
 				3C6E343122F56CCD00403D4C /* Info.plist */,
+				947CD8A32D6F220C00847AED /* Test.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 			packageReferences = (
 				940CEEB02D534A4D00B1EA09 /* XCRemoteSwiftPackageReference "FileKit" */,
 				940CEEB12D534A9000B1EA09 /* XCRemoteSwiftPackageReference "CSV.swift" */,
+				947CD8A02D6F1CFC00847AED /* XCLocalSwiftPackageReference "../Package/LocalizableStringsTools" */,
 			);
 			productRefGroup = 3C0B910522F2D91000F16E13 /* Products */;
 			projectDirPath = "";
@@ -233,6 +239,7 @@
 				3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */,
 				3C6E343A22F56CCE00403D4C /* Assets.xcassets in Resources */,
 				3C6E343922F56CCE00403D4C /* Localizable.strings in Resources */,
+				947CD8A52D6F220C00847AED /* Test.strings in Resources */,
 				3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +310,14 @@
 				3C6E344422F5878100403D4C /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		947CD8A32D6F220C00847AED /* Test.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				947CD8A42D6F220C00847AED /* en */,
+			);
+			name = Test.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -543,6 +558,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		947CD8A02D6F1CFC00847AED /* XCLocalSwiftPackageReference "../Package/LocalizableStringsTools" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Package/LocalizableStringsTools;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		940CEEB02D534A4D00B1EA09 /* XCRemoteSwiftPackageReference "FileKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -563,6 +585,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		947CD8A12D6F1CFC00847AED /* LocalizableStringsTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocalizableStringsTools;
+		};
 		94F1072F2D534D5F00CF6631 /* FileKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 940CEEB02D534A4D00B1EA09 /* XCRemoteSwiftPackageReference "FileKit" */;
