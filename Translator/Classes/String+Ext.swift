@@ -25,7 +25,7 @@ extension String {
     func removeFileHeader() -> String {
         return replacingOccurrences(of: "file://", with: "")
     }
-
+    /// 移除括号
     func removeBraces() -> String? {
         return replacingOccurrences(of: "（", with: "(").components(separatedBy: "(").first
     }
