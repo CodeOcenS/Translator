@@ -16,12 +16,18 @@
 		3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E342F22F56CCD00403D4C /* Main.storyboard */; };
 		3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C6E344322F5878000403D4C /* InfoPlist.strings */; };
 		41045B01231B808C006D6460 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41045B00231B808C006D6460 /* Keys.swift */; };
+		94152F692D71BF840041F95A /* HandleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94152F682D71BF840041F95A /* HandleError.swift */; };
 		9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455FF3F29CC28FA00D9EFBF /* Log.swift */; };
 		947CD8A22D6F1CFC00847AED /* LocalizableStringsTools in Frameworks */ = {isa = PBXBuildFile; productRef = 947CD8A12D6F1CFC00847AED /* LocalizableStringsTools */; };
 		947CD8A52D6F220C00847AED /* Test.strings in Resources */ = {isa = PBXBuildFile; fileRef = 947CD8A32D6F220C00847AED /* Test.strings */; };
 		947CD8AE2D70118C00847AED /* LanguageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AD2D70118C00847AED /* LanguageItem.swift */; };
 		947CD8B02D70120300847AED /* LanguageFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AF2D70120300847AED /* LanguageFileModel.swift */; };
 		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
+		94D9AA3F2D793A35004501F5 /* CSVHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9AA3E2D793A35004501F5 /* CSVHelper.swift */; };
+		94D9AA422D797227004501F5 /* 多语言翻译模板_数据异常.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA402D797227004501F5 /* 多语言翻译模板_数据异常.xlsx */; };
+		94D9AA432D797227004501F5 /* 多语言翻译模板_数据正常.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA412D797227004501F5 /* 多语言翻译模板_数据正常.xlsx */; };
+		94D9AA462D797250004501F5 /* 多语言翻译模板_数据异常.csv in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA442D797250004501F5 /* 多语言翻译模板_数据异常.csv */; };
+		94D9AA472D797250004501F5 /* 多语言翻译模板_数据正常.csv in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA452D797250004501F5 /* 多语言翻译模板_数据正常.csv */; };
 		94F107302D534D5F00CF6631 /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94F1072F2D534D5F00CF6631 /* FileKit */; };
 		94F107322D534D6400CF6631 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 94F107312D534D6400CF6631 /* CSV */; };
 /* End PBXBuildFile section */
@@ -50,12 +56,18 @@
 		3C6E344222F5878000403D4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3C6E344422F5878100403D4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		41045B00231B808C006D6460 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		94152F682D71BF840041F95A /* HandleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleError.swift; sourceTree = "<group>"; };
 		9455FF3F29CC28FA00D9EFBF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		947CD8A42D6F220C00847AED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Test.strings; sourceTree = "<group>"; };
 		947CD8AD2D70118C00847AED /* LanguageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageItem.swift; sourceTree = "<group>"; };
 		947CD8AF2D70120300847AED /* LanguageFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFileModel.swift; sourceTree = "<group>"; };
 		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
+		94D9AA3E2D793A35004501F5 /* CSVHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelper.swift; sourceTree = "<group>"; };
+		94D9AA402D797227004501F5 /* 多语言翻译模板_数据异常.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "多语言翻译模板_数据异常.xlsx"; sourceTree = "<group>"; };
+		94D9AA412D797227004501F5 /* 多语言翻译模板_数据正常.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "多语言翻译模板_数据正常.xlsx"; sourceTree = "<group>"; };
+		94D9AA442D797250004501F5 /* 多语言翻译模板_数据异常.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = "多语言翻译模板_数据异常.csv"; sourceTree = "<group>"; };
+		94D9AA452D797250004501F5 /* 多语言翻译模板_数据正常.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = "多语言翻译模板_数据正常.csv"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +129,7 @@
 				3C6E342722F56CCD00403D4C /* Localized.swift */,
 				41045B00231B808C006D6460 /* Keys.swift */,
 				9455FF3F29CC28FA00D9EFBF /* Log.swift */,
+				94152F682D71BF840041F95A /* HandleError.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -130,6 +143,10 @@
 				3C6E342F22F56CCD00403D4C /* Main.storyboard */,
 				3C6E343122F56CCD00403D4C /* Info.plist */,
 				947CD8A32D6F220C00847AED /* Test.strings */,
+				94D9AA402D797227004501F5 /* 多语言翻译模板_数据异常.xlsx */,
+				94D9AA412D797227004501F5 /* 多语言翻译模板_数据正常.xlsx */,
+				94D9AA442D797250004501F5 /* 多语言翻译模板_数据异常.csv */,
+				94D9AA452D797250004501F5 /* 多语言翻译模板_数据正常.csv */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -138,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				947CD8AC2D70115C00847AED /* Models */,
+				94D9AA3E2D793A35004501F5 /* CSVHelper.swift */,
 			);
 			path = CSVHelper;
 			sourceTree = "<group>";
@@ -259,10 +277,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */,
+				94D9AA462D797250004501F5 /* 多语言翻译模板_数据异常.csv in Resources */,
+				94D9AA472D797250004501F5 /* 多语言翻译模板_数据正常.csv in Resources */,
 				3C6E343A22F56CCE00403D4C /* Assets.xcassets in Resources */,
 				3C6E343922F56CCE00403D4C /* Localizable.strings in Resources */,
 				947CD8A52D6F220C00847AED /* Test.strings in Resources */,
 				3C6E343B22F56CCE00403D4C /* Main.storyboard in Resources */,
+				94D9AA422D797227004501F5 /* 多语言翻译模板_数据异常.xlsx in Resources */,
+				94D9AA432D797227004501F5 /* 多语言翻译模板_数据正常.xlsx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,9 +306,11 @@
 				947CD8AE2D70118C00847AED /* LanguageItem.swift in Sources */,
 				3C6E343622F56CCE00403D4C /* AppDelegate.swift in Sources */,
 				41045B01231B808C006D6460 /* Keys.swift in Sources */,
+				94D9AA3F2D793A35004501F5 /* CSVHelper.swift in Sources */,
 				9455FF4029CC28FA00D9EFBF /* Log.swift in Sources */,
 				3C6E343722F56CCE00403D4C /* Localized.swift in Sources */,
 				3C6E343422F56CCE00403D4C /* String+Ext.swift in Sources */,
+				94152F692D71BF840041F95A /* HandleError.swift in Sources */,
 				3C6E343322F56CCE00403D4C /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
