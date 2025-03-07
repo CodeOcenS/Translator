@@ -28,6 +28,7 @@
 		94D9AA432D797227004501F5 /* 多语言翻译模板_数据正常.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA412D797227004501F5 /* 多语言翻译模板_数据正常.xlsx */; };
 		94D9AA462D797250004501F5 /* 多语言翻译模板_数据异常.csv in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA442D797250004501F5 /* 多语言翻译模板_数据异常.csv */; };
 		94D9AA472D797250004501F5 /* 多语言翻译模板_数据正常.csv in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA452D797250004501F5 /* 多语言翻译模板_数据正常.csv */; };
+		94E191062D797F1800EC4D65 /* UpdateStringsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E191052D797F1800EC4D65 /* UpdateStringsHelper.swift */; };
 		94F107302D534D5F00CF6631 /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94F1072F2D534D5F00CF6631 /* FileKit */; };
 		94F107322D534D6400CF6631 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 94F107312D534D6400CF6631 /* CSV */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		94D9AA412D797227004501F5 /* 多语言翻译模板_数据正常.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "多语言翻译模板_数据正常.xlsx"; sourceTree = "<group>"; };
 		94D9AA442D797250004501F5 /* 多语言翻译模板_数据异常.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = "多语言翻译模板_数据异常.csv"; sourceTree = "<group>"; };
 		94D9AA452D797250004501F5 /* 多语言翻译模板_数据正常.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = "多语言翻译模板_数据正常.csv"; sourceTree = "<group>"; };
+		94E191052D797F1800EC4D65 /* UpdateStringsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStringsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		3C0B910622F2D91000F16E13 /* Translator */ = {
 			isa = PBXGroup;
 			children = (
+				94E191042D797EFE00EC4D65 /* UpdateStringsHelper */,
 				947CD8A92D70111200847AED /* CSVHelper */,
 				3C6E342222F56CCD00403D4C /* Classes */,
 				3C6E342822F56CCD00403D4C /* Resources */,
@@ -175,6 +178,14 @@
 				94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */,
 			);
 			path = TranslatorTests;
+			sourceTree = "<group>";
+		};
+		94E191042D797EFE00EC4D65 /* UpdateStringsHelper */ = {
+			isa = PBXGroup;
+			children = (
+				94E191052D797F1800EC4D65 /* UpdateStringsHelper.swift */,
+			);
+			path = UpdateStringsHelper;
 			sourceTree = "<group>";
 		};
 		94F1072E2D534D5F00CF6631 /* Frameworks */ = {
@@ -312,6 +323,7 @@
 				3C6E343422F56CCE00403D4C /* String+Ext.swift in Sources */,
 				94152F692D71BF840041F95A /* HandleError.swift in Sources */,
 				3C6E343322F56CCE00403D4C /* HomeController.swift in Sources */,
+				94E191062D797F1800EC4D65 /* UpdateStringsHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

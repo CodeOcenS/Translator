@@ -14,6 +14,8 @@ private let localizableFileName = "Localizable.strings"
 private let keyTitles = ["key","Key","KEY"]
 private let keyBeiZhu = "备注"
 
+private let stringsFileParentSuffix = ".lproj";
+
 class HomeController: NSViewController {
     
     @IBOutlet weak var savePathField: NSTextField!
@@ -34,6 +36,8 @@ class HomeController: NSViewController {
     
     var localPath: URL?
     let csvHelper: CSVHelper = CSVHelper()
+    /// 自动插入或者更新 strings
+    let updateStringsHelper: UpdateStringsHelper = UpdateStringsHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,10 +114,23 @@ class HomeController: NSViewController {
         savePathField.stringValue = url.absoluteString.urlDecoded().removeFileHeader()
     }
     @IBAction func parseAutoInsertButtonTapped(_ sender: NSButton) {
+        // 检查合法性
+        let insertKey = self.insertKeyTextField.stringValue.removeWhitespace()
+        guard !insertKey.isEmpty else {
+            showAlert(title: "请填写插入key")
+            return
+        }
+        guard let url = openPanel.url else {
+            showAlert(title: Localized.failedToOpenFile)
+            return
+        }
         // 解析 excel 自动插入到对应语种的 strings 文件中
         do {
-            let stringsFilePaths = try findPaths()
-            
+            var stringsFilePaths = try findLanguagePaths()
+            // 去掉 en.lproj
+            stringsFilePaths.removeAll(where: {$0.fileName == "en\(stringsFileParentSuffix)"})
+            // 开始对其他语言插入
+            _ = self.autoInsertStrings(paths: stringsFilePaths, after: insertKey)
         } catch let error as HandleError {
             showAlert(title: "自动导入异常",msg: error.message)
         } catch {
@@ -121,114 +138,7 @@ class HomeController: NSViewController {
         }
     }
     @IBAction func TestButtonTapped(_ sender: NSButton) {
-        // 临时测试
-        let path = "/Users/pandaeye/Documents/SupportFramwork/Translator/Translator/Resources/en.lproj/Test.strings"
-        let key = "key4";
-        guard let url = openPanel.url else {
-            showAlert(title: Localized.failedToOpenFile)
-            return
-        }
-        do {
-            let csvReader = try csvHelper.csvReader(url: url)
-            let result = try csvHelper.parseCSVFile(reader: csvReader)
-            if !result.errorInfo.isEmpty {
-                Log.shared.error(result.errorInfo.writable.componentsJoined(by: "\n"))
-            }
-            if result.models.isEmpty {
-                showAlert(title: "读取CSV成功，但未解析都符合数据")
-            } else {
-                // TODO: 匹配对应语种
-                let isSuccess = insertOtherStrings(result.models.last!, to: path, after: key)
-            }
-        } catch let error as HandleError {
-            showAlert(title: "读取CSV文件失败 error:\(error.message)")
-        } catch {
-            showAlert(title: "读取CSV文件失败")
-        }
-        
-    }
-    func insertOtherStrings(_ stringsFileModel:LanguageFileModel, to filePath:String, after key:String) -> Bool {
-        guard !stringsFileModel.items.isEmpty, !filePath.isEmpty, !key.isEmpty else {
-            return false
-        }
-        // 插入指定位置
-        guard let text = try? String(contentsOfFile: filePath, encoding: .utf8) else {
-            Log.shared.error("自动插入，读取文件失败")
-            return false
-        }
-        // 从路径读取 strings 文件并解析
-        let result = LocalizableStringsParser.parse(string: text, locale: filePath)
-        let filter = result.localizableStrings.filter { $0.key == key }
-        guard filter.count == 1, let first = filter.first else {
-            Log.shared.error("自动插入，找不到key,或者找到多个key， keyCount:\(filter.count)")
-            return false
-        }
-        // 检查是否包含这个 key,
-        var textHaveKey = false
-        for item in stringsFileModel.items {
-            let key = item.key
-            let filterKey = result.localizableStrings.filter { temp in
-                temp.key == key
-            }
-            if filterKey.isEmpty {
-                textHaveKey = true
-            }
-        }
-        if (textHaveKey) {
-            Log.shared.error("自动插入，将要插入的文件已经包含该 相同的key \(stringsFileModel.items)")
-            return false
-        }
-        // 找到原来strings 匹配的 的key value 组合值, 必须要按照这个格式才能匹配。
-        let subStr = "\"\(first.key)\" = \"\(first.value)\";"
-        // 找到插入位置
-        
-        if #available(macOS 13.0, *) {
-            do {
-                let indexResult = try LocalizableStringsUtils.findInsertIndex(allStrings:text , subStr: subStr)
-                // 替换到指定位置之后 \n + 需要插入的内容。
-                guard let index = indexResult.index else {
-                    Log.shared.error("自动插入，找不到插入点")
-                    return false
-                }
-                let insertIndexHave2EmptyLine = indexResult.insertIndexHave2EmptyLine
-                var willInsertText = "\n"
-                for item in stringsFileModel.items {
-                    if let desc = item.desc, !desc.isEmpty {
-                        willInsertText += "\n// \(desc)"
-                    }
-                    willInsertText += "\n\"\(item.key)\" = \"\(item.value)\";"
-                }
-                if !insertIndexHave2EmptyLine {
-                    willInsertText = willInsertText + "\n\n"
-                }
-                var allStrings = text
-                allStrings.insert(contentsOf: willInsertText, at: index)
-                // 删除文件，重新写入
-                do {
-                    try FileManager.default.removeItem(atPath: filePath)
-                    try allStrings.write(toFile: filePath, atomically: true, encoding: .utf8)
-                    return true
-                } catch let error {
-                    Log.shared.error("自动插入，文件删除或者写入失败：\(error)")
-                    return false
-                }
-            } catch let error as LocalizableStringsFindInsertIndexError {
-                switch error {
-                case .multipleMatches:
-                    Log.shared.error("自动插入，匹配到多个，无法自动插入 subxStr:\(subStr)")
-                case .noMatch:
-                    Log.shared.error("自动插入，找不到匹配项，无法自动插入 subxStr:\(subStr)")
-                case .multiLineComment:
-                    Log.shared.error("自动插入，插入点后存在多行注释\\* \n */，无法自动插入 subxStr:\(subStr)")
-                }
-                return false
-            } catch {
-                return false
-            }
-        } else {
-            Log.shared.error("自动插入，macOS 版本不支持, 应该大于 13.0")
-            return false
-        }
+        // 测试
     }
     
     /// MARK: - Lazy
@@ -413,7 +323,7 @@ extension HomeController {
     }
 
 }
-// MARK: 额外增加方法
+// MARK: 额外增加方法  （等待删除部分方法）
 extension HomeController {
     /// 是否是备注列
     func isDescrTitle(_ title: String) -> Bool {
@@ -534,31 +444,84 @@ extension HomeController {
 }
 // 自动插入
 extension HomeController  {
-    func findPaths() throws -> [Path] {
+    func findLanguagePaths() throws -> [Path] {
         let projectPath = projectTextField.stringValue.trimmingCharacters(in: .whitespaces)
         let stringsFileName = stringsFileNameTextField.stringValue.trimmingCharacters(in: .whitespaces)
         let path = Path(projectPath)
+        
+        if projectPath.isEmpty || !path.exists {
+            throw HandleError(message: "路径不能为空，或者不存在，请检查多语言目录地址");
+        }
         let stringsFilePaths = path.children().compactMap { item in
-            if item.fileName.contains(".lproj")  { // 判断是否是 lproj 文件夹
+            if item.fileName.contains(stringsFileParentSuffix)  { // 判断是否是 lproj 文件夹, 但是要除开 en,
                 let filterFiles = item.children().filter { path in
                     // 不是目录，且包含指定问价名
-                    !path.isDirectoryFile && path.fileName.contains(stringsFileName);
+                    !path.isDirectoryFile && path.fileName.contains(stringsFileName)
                 }
                 return filterFiles.first
             } else {
                 return nil
             }
         }
-        if projectPath.isEmpty {
-            throw HandleError(message: "路径不能为空");
-        }
         if stringsFileName.isEmpty {
             throw HandleError(message: "strings文件名不能为空");
         }
         if stringsFilePaths.isEmpty {
-            throw HandleError(message: "找不目标文件");
+            throw HandleError(message: "找不xx.lproj目标文件");
         }
         return stringsFilePaths
+    }
+    /// 自动插入翻译到 strings 文件，返回的是插入成功的。
+    func autoInsertStrings(paths:[Path], after key:String ) -> [Path] {
+        guard let url = openPanel.url else {
+            showAlert(title: Localized.failedToOpenFile)
+            return []
+        }
+        do {
+            let csvReader = try csvHelper.csvReader(url: url)
+            let result = try csvHelper.parseCSVFile(reader: csvReader)
+            if !result.errorInfo.isEmpty {
+                Log.shared.error(result.errorInfo.writable.componentsJoined(by: "\n"))
+            }
+            if result.models.isEmpty {
+                showAlert(title: "读取CSV成功，但未解析都符合数据")
+            } else {
+                if #available(macOS 13.0, *) {
+                    var successPath:[Path] = []
+                    var errorMsg = "自动解析插入失败\n"
+                    // 真正插入
+                    for path in paths {
+                        let languageName = path.fileNameWithoutExtension
+                        if let aimFileModel = result.models.first(where: {$0.languageName.lowercased() == languageName.lowercased()}) {
+                            if let error = updateStringsHelper.insertOtherStrings(result.models.last!, to: path.rawValue, after: key) {
+                                errorMsg += error.message + "\n"
+                            } else {
+                                successPath.append(path)
+                            }
+                        } else {
+                            // 没有找到对应多语言列
+                            errorMsg += "在csv 中没有找到对应语种\(languageName)翻译\n"
+                        }
+                    }
+                    if successPath.isEmpty {
+                        showAlert(title: "所有多语言插入失败，手动处理", msg: errorMsg, doneTitle: "确定")
+                    } else if successPath.count == paths.count {
+                        // 所有都成功
+                        showAlert(title: "所有多语言插入成功", doneTitle: "确定")
+                    } else {
+                        showAlert(title: "部分多语言插入成功，手动处理", msg: errorMsg, doneTitle: "确定");
+                    }
+                    return successPath
+                } else {
+                    showAlert(title: "系统版本应该大于 macOS 13.0")
+                }
+            }
+        } catch let error as HandleError {
+            showAlert(title: "读取CSV文件失败 error:\(error.message)")
+        } catch {
+            showAlert(title: "读取CSV文件失败")
+        }
+        return []
     }
 }
 
