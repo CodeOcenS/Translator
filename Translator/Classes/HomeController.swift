@@ -128,7 +128,7 @@ class HomeController: NSViewController {
         do {
             var stringsFilePaths = try findLanguagePaths()
             // 去掉 en.lproj
-            stringsFilePaths.removeAll(where: {$0.fileName == "en\(stringsFileParentSuffix)"})
+            stringsFilePaths.removeAll(where: {$0.parent.fileName == "en\(stringsFileParentSuffix)"})
             // 开始对其他语言插入
             _ = self.autoInsertStrings(paths: stringsFilePaths, after: insertKey)
         } catch let error as HandleError {
@@ -491,9 +491,9 @@ extension HomeController  {
                     var errorMsg = "自动解析插入失败\n"
                     // 真正插入
                     for path in paths {
-                        let languageName = path.fileNameWithoutExtension
+                        let languageName = path.parent.fileNameWithoutExtension
                         if let aimFileModel = result.models.first(where: {$0.languageName.lowercased() == languageName.lowercased()}) {
-                            if let error = updateStringsHelper.insertOtherStrings(result.models.last!, to: path.rawValue, after: key) {
+                            if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key) {
                                 errorMsg += error.message + "\n"
                             } else {
                                 successPath.append(path)
