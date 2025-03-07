@@ -777,8 +777,8 @@
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BRa-eS-Hjl">
                                 <rect key="frame" x="28" y="261" width="483" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="以下自动解析配置，自动插入到项目对应多语言文件，有相同的 Key, 自动更新值" id="A3l-en-fVg">
-                                    <font key="font" metaFont="system"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="以下自动解析配置，补充其他翻译（除了 en）" id="A3l-en-fVg">
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -796,7 +796,7 @@
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CFf-sV-VhL">
                                 <rect key="frame" x="150" y="206" width="369" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" alignment="left" placeholderString="目录应包含xx.lproj多语言文件夹" drawsBackground="YES" id="8XE-6m-gaH">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="目录应包含xx.lproj多语言文件夹" drawsBackground="YES" id="8XE-6m-gaH">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -815,7 +815,7 @@
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-d8-4YY">
                                 <rect key="frame" x="150" y="156" width="369" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" alignment="left" placeholderString="stings 前的名字，比如 Localizable.strings， 则填 Localizable" drawsBackground="YES" id="AR8-5e-LLk">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="Localizable" placeholderString="stings 前的名字，比如 Localizable.strings， 则填 Localizable" drawsBackground="YES" id="AR8-5e-LLk">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -834,7 +834,7 @@
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vPY-fR-0gw">
                                 <rect key="frame" x="150" y="106" width="369" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" alignment="left" placeholderString="插入到某个 key 后， “最后”表示插入到最后" drawsBackground="YES" id="Ie7-2F-iZb">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="插入到某个 key 后" drawsBackground="YES" id="Ie7-2F-iZb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
