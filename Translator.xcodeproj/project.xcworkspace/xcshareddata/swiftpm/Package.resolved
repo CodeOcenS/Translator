@@ -1,5 +1,5 @@
 {
-  "originHash" : "d9027a16ec4ad0fb1650f8a8b45a8ed270b7418a5c03107a0ee2c4886be3ab7b",
+  "originHash" : "a9227a19d0ebc7b81411479e4c3f0aff666b07b54cfb11db131344ac551e1c86",
   "pins" : [
     {
       "identity" : "csv.swift",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "9006d2888025fbe893c3c396327b2fe45a8c177b",
         "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "localizablestringstools",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CodeOcenS/LocalizableStringsTools.git",
+      "state" : {
+        "revision" : "92243d44d8507b4fa3cffb72102be2bbf5db0356",
+        "version" : "1.0.0"
       }
     }
   ],

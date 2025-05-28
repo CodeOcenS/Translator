@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -273,7 +273,7 @@
 			packageReferences = (
 				940CEEB02D534A4D00B1EA09 /* XCRemoteSwiftPackageReference "FileKit" */,
 				940CEEB12D534A9000B1EA09 /* XCRemoteSwiftPackageReference "CSV.swift" */,
-				947CD8A02D6F1CFC00847AED /* XCLocalSwiftPackageReference "../Package/LocalizableStringsTools" */,
+				94AD87DE2DE6DD3E008BA769 /* XCRemoteSwiftPackageReference "LocalizableStringsTools" */,
 			);
 			productRefGroup = 3C0B910522F2D91000F16E13 /* Products */;
 			projectDirPath = "";
@@ -622,13 +622,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		947CD8A02D6F1CFC00847AED /* XCLocalSwiftPackageReference "../Package/LocalizableStringsTools" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../Package/LocalizableStringsTools;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		940CEEB02D534A4D00B1EA09 /* XCRemoteSwiftPackageReference "FileKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -644,6 +637,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.5.2;
+			};
+		};
+		94AD87DE2DE6DD3E008BA769 /* XCRemoteSwiftPackageReference "LocalizableStringsTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CodeOcenS/LocalizableStringsTools.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
