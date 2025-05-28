@@ -33,7 +33,7 @@ class HomeController: NSViewController {
     @IBOutlet weak var stringsFileNameTextField: NSTextField!
     @IBOutlet weak var insertKeyTextField: NSTextField!
     
-    
+    /// 本地地址，存 error.log, strings的
     var localPath: URL?
     let csvHelper: CSVHelper = CSVHelper()
     /// 自动插入或者更新 strings
@@ -114,13 +114,17 @@ class HomeController: NSViewController {
         savePathField.stringValue = url.absoluteString.urlDecoded().removeFileHeader()
     }
     @IBAction func parseAutoInsertButtonTapped(_ sender: NSButton) {
+        // TODO: - LWF:  待优化， 将英文也添加到结果 strings 中
         // 检查合法性
         let insertKey = self.insertKeyTextField.stringValue.removeWhitespace()
         guard !insertKey.isEmpty else {
             showAlert(title: "请填写插入key")
             return
         }
-        guard let url = openPanel.url else {
+        guard localPath != nil else {
+            showAlert(title: Localized.pleaseSetTheStorageDirectoryFirst)
+            return }
+        guard openPanel.url != nil else {
             showAlert(title: Localized.failedToOpenFile)
             return
         }
@@ -132,7 +136,19 @@ class HomeController: NSViewController {
             // 开始对其他语言插入
             _ = self.autoInsertStrings(paths: stringsFilePaths, after: insertKey)
         } catch let error as HandleError {
-            showAlert(title: "自动导入异常",msg: error.message)
+            let msg = error.message
+            Log.shared.error(msg)
+            if let path = localPath {
+                Log.shared.save(basePath: path.absoluteString.urlDecoded().removeFileHeader())
+                let result = showAlert(title: "自动导入异常",msg: msg, doneTitle: "去检查错误日志")
+                if (result) {
+                    NSWorkspace.shared.open(path)
+                } else {
+                    debugPrint("打开失败：\(path.absoluteString)")
+                }
+            } else {
+                showAlert(title: "自动导入异常",msg: msg);
+            }
         } catch {
             
         }
@@ -259,7 +275,7 @@ extension HomeController {
                     if key.isEmpty {
                         Log.shared.error("\(value)缺少对应key")
                     }
-                    var result = "\"\(key)\" = \"\(Self.replaceSpecial(value))\";"
+                    var result = "\"\(Self.replaceSpecial(key))\" = \"\(Self.replaceSpecial(value))\";"
                     if (descr.count > 0) {
                         let describeArray = descr.components(separatedBy: "\n")
                         var describe = ""
@@ -423,12 +439,7 @@ extension HomeController {
     /// 删除单个语言文件
     private func deleteSingleLanguageFile(paths:[String]) {
         for item in paths {
-            var pathStr = item
-            if #available(macOS 13.0, *) {
-                pathStr = item.replacing("/\(localizableFileName)", with: "", maxReplacements: 1)
-            } else {
-                showAlert(title: "macOS 版本过低，应该大于 13.0")
-            }
+            let pathStr = item.replacingOccurrences(of: "/\(localizableFileName)", with: "")
             guard !pathStr.isEmpty else {
                 return
             }
@@ -489,27 +500,50 @@ extension HomeController  {
                 if #available(macOS 13.0, *) {
                     var successPath:[Path] = []
                     var errorMsg = "自动解析插入失败\n"
+                    // 先创建 LocalizableAll.strings 文件，记录每个语言结果，如果全部成功，则删除。
+                    var textFile: TextFile!
+                    if let localizalbleAllFileURL = localPath?.appending(component: "AutoInsertLocalizableResult.strings"),
+                       let path = Path(url: localizalbleAllFileURL) {
+                        if path.exists {
+                            try path.deleteFile()
+                        }
+                        try? path.createFile()
+                        textFile = TextFile(path: path)
+                        try "// 自动插入多语言处理结果\n" |>> textFile
+                    }
                     // 真正插入
                     for path in paths {
                         let languageName = path.parent.fileNameWithoutExtension
+                        var stringsFileText = "\n\n// MARK: - \(languageName)";
                         if let aimFileModel = result.models.first(where: {$0.languageName.lowercased() == languageName.lowercased()}) {
-                            if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key) {
+                            if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key, scopeComment: self.commentsTextField.stringValue.removeWhitespace()) {
                                 errorMsg += error.message + "\n"
+                                stringsFileText += "\n// 自动插入失败：\n// \(error.message)\n"
+                                let stringsText = stringsText(aimFileModel)
+                                stringsFileText += "\n\(stringsText)"
                             } else {
                                 successPath.append(path)
+                                stringsFileText += "\n// 自动插入成功, 请前往 git 版本控制检查。"
                             }
                         } else {
                             // 没有找到对应多语言列
-                            errorMsg += "在csv 中没有找到对应语种\(languageName)翻译\n"
+                            let msg = "在csv 中没有找到对应语种\(languageName)翻译\n"
+                            errorMsg += msg
+                            stringsFileText += "\n// 自动插入失败：\(msg)"
                         }
+                        try stringsFileText |>> textFile
                     }
+                    var shouldOpenFile = false;
                     if successPath.isEmpty {
-                        showAlert(title: "所有多语言插入失败，手动处理", msg: errorMsg, doneTitle: "确定")
+                        shouldOpenFile = showAlert(title: "所有多语言插入失败，请手动处理", msg: "请前往AutoInsertLocalizableResult.strings文件查看", doneTitle: "去处理")
                     } else if successPath.count == paths.count {
                         // 所有都成功
-                        showAlert(title: "所有多语言插入成功", doneTitle: "确定")
+                        shouldOpenFile = showAlert(title: "所有多语言插入成功", doneTitle: "确定")
                     } else {
-                        showAlert(title: "部分多语言插入成功，手动处理", msg: errorMsg, doneTitle: "确定");
+                        shouldOpenFile = showAlert(title: "多语言插入部分成功，部分失败，请手动处理", msg: "请前往AutoInsertLocalizableResult.strings文件查看", doneTitle: "去处理");
+                    }
+                    if shouldOpenFile, let path = localPath {
+                        NSWorkspace.shared.open(path)
                     }
                     return successPath
                 } else {
@@ -519,9 +553,20 @@ extension HomeController  {
         } catch let error as HandleError {
             showAlert(title: "读取CSV文件失败 error:\(error.message)")
         } catch {
-            showAlert(title: "读取CSV文件失败")
+            showAlert(title: "读取CSV文件失败 error:\(error.localizedDescription)")
         }
         return []
+    }
+    func stringsText(_ fileModel: LanguageFileModel) -> String {
+        let strings = fileModel.items.map { item in
+            var text = ""
+            if let desc = item.desc, !desc.isEmpty {
+                text += "// \(desc)\n"
+            }
+            text += "\"\(Self.replaceSpecial(item.key))\" = \"\(Self.replaceSpecial(item.value))\""
+            return text
+        }
+        return strings.joined(separator: "\n")
     }
 }
 
@@ -559,6 +604,12 @@ extension HomeController {
 
 extension HomeController {
     
+    /// 展示弹窗
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - msg: 文本
+    ///   - doneTitle: 其他按钮标题，如果为 nil,则只展示取消按钮。
+    /// - Returns: 返回是否选中了其他按钮。 
     @discardableResult
     func showAlert(title:String, msg:String? = nil, doneTitle: String? = nil) -> Bool {
         let alert = NSAlert.init()

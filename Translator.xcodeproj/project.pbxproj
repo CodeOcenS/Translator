@@ -22,6 +22,7 @@
 		947CD8A52D6F220C00847AED /* Test.strings in Resources */ = {isa = PBXBuildFile; fileRef = 947CD8A32D6F220C00847AED /* Test.strings */; };
 		947CD8AE2D70118C00847AED /* LanguageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AD2D70118C00847AED /* LanguageItem.swift */; };
 		947CD8B02D70120300847AED /* LanguageFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CD8AF2D70120300847AED /* LanguageFileModel.swift */; };
+		94B121912DDC165000CD14D7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 94B121902DDC165000CD14D7 /* README.md */; };
 		94C2A4A02817EFA300E46F4A /* TranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */; };
 		94D9AA3F2D793A35004501F5 /* CSVHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9AA3E2D793A35004501F5 /* CSVHelper.swift */; };
 		94D9AA422D797227004501F5 /* 多语言翻译模板_数据异常.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 94D9AA402D797227004501F5 /* 多语言翻译模板_数据异常.xlsx */; };
@@ -62,6 +63,7 @@
 		947CD8A42D6F220C00847AED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Test.strings; sourceTree = "<group>"; };
 		947CD8AD2D70118C00847AED /* LanguageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageItem.swift; sourceTree = "<group>"; };
 		947CD8AF2D70120300847AED /* LanguageFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFileModel.swift; sourceTree = "<group>"; };
+		94B121902DDC165000CD14D7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		94C2A49D2817EFA300E46F4A /* TranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C2A49F2817EFA300E46F4A /* TranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorTests.swift; sourceTree = "<group>"; };
 		94D9AA3E2D793A35004501F5 /* CSVHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelper.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		3C0B910622F2D91000F16E13 /* Translator */ = {
 			isa = PBXGroup;
 			children = (
+				94B121902DDC165000CD14D7 /* README.md */,
 				94E191042D797EFE00EC4D65 /* UpdateStringsHelper */,
 				947CD8A92D70111200847AED /* CSVHelper */,
 				3C6E342222F56CCD00403D4C /* Classes */,
@@ -289,6 +292,7 @@
 			files = (
 				3C6E344122F5878000403D4C /* InfoPlist.strings in Resources */,
 				94D9AA462D797250004501F5 /* 多语言翻译模板_数据异常.csv in Resources */,
+				94B121912DDC165000CD14D7 /* README.md in Resources */,
 				94D9AA472D797250004501F5 /* 多语言翻译模板_数据正常.csv in Resources */,
 				3C6E343A22F56CCE00403D4C /* Assets.xcassets in Resources */,
 				3C6E343922F56CCE00403D4C /* Localizable.strings in Resources */,

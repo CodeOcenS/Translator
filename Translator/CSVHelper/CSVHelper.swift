@@ -33,18 +33,29 @@ public struct CSVHelper {
     }
     /// 从csv流中 转换为对象。
     func parseCSVFile(reader: CSVReader) throws -> (models: [LanguageFileModel], errorInfo: [HandleError])  {
-        guard let keyRow = findKeyRow(reader: reader) else {
+        guard let tempKeyRow = findKeyRow(reader: reader) else {
             throw handleCSVError(message: "未找到包含 Key 的行")
         }
+        // 删除中文 （ ）
+        let keyRow = tempKeyRow.map({deleteChinese($0).removeWhitespace()})
         debugPrint("表头数据：\(keyRow)\n")
         // 检查是否包含 Key 列
         guard let keyIndex = keyRow.firstIndex(where: {keyTitles.contains($0.removeWhitespace())}) else {
             throw handleCSVError(message: "不存在 key 列")
         }
+        
         // 检查是否有重复title
-        let titleSet = Set.init(keyRow)
-        guard titleSet.count == keyRow.count else {
-            throw handleCSVError(message: "存在相同的title, titles:\(keyRow)")
+        var titleDict = [String: Int]()
+        keyRow.forEach { item in
+            if let titleCount = titleDict[item] {
+                titleDict[item] = titleCount + 1
+            } else {
+                titleDict[item] = 1
+            }
+        }
+        let duplicateDict = titleDict.filter({$0.value > 1 && $0.key != ""})
+        guard duplicateDict.count == 0 else {
+            throw handleCSVError(message: "存在相同的title, titles:\(duplicateDict.keys)")
         }
         // 备注Index
         let descColumnIndex = keyRow.firstIndex { title in
@@ -55,7 +66,8 @@ public struct CSVHelper {
                 return nil
             } else {
                 var model = LanguageFileModel()
-                model.languageName = title.removeWhitespace()
+                let name = deleteChinese(title).removeWhitespace() // 删除空白，删除中文
+                model.languageName = name
                 return model
             }
         }
@@ -94,7 +106,7 @@ public struct CSVHelper {
                 if key.isEmpty {
                     errors.append(handleCSVError(message: "\(value)缺少对应key"))
                 }
-                let item = LanguageItem(key: key, value: value, desc: desc)
+                let item = LanguageItem(key: key.removeWhitespace(), value: value.removeWhitespace(), desc: desc)
                 if let index = languageFiles.firstIndex(where: {$0.languageName == title}) {
                     languageFiles[index].items.append(item)
                 } else {
@@ -138,7 +150,7 @@ private extension CSVHelper {
         /// 必须要包含 Key 列
         let keyHeader = header.filter {keyTitles.contains($0.removeWhitespace())}
         guard keyHeader.isEmpty else {
-            return keyHeader
+            return keyHeader.map({return $0.removeWhitespace()})
         }
         header = []
         while (reader.next() != nil) {
@@ -147,13 +159,20 @@ private extension CSVHelper {
             }
             let count = current.filter {keyTitles.contains($0.removeWhitespace())}.count
             if count > 0 {
-                return current
+                return current.map({return $0.removeWhitespace()})
             }
         }
         if header.isEmpty {
             return nil
         } else {
-            return header
+            return header.map({return $0.removeWhitespace()})
         }
+    }
+    /// 删除String中的中文 和 （ ）
+    func deleteChinese(_ string: String) -> String {
+        var str = string.replacingOccurrences(of: "\\p{Han}", with: "", options: .regularExpression)
+        str = str.replacingOccurrences(of: "（", with: "")
+        str = str.replacingOccurrences(of: "）", with: "")
+        return str
     }
 }

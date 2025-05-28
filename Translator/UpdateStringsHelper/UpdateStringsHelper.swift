@@ -15,10 +15,16 @@ private func handleUpdateStringsError(message: String) -> HandleError {
 
 struct UpdateStringsHelper{
     /// 插入新增 strings
+    /// - Parameters:
+    ///   - csvFileModel: csvFileModel 解析 csv 文件 model
+    ///   - filePath: strings 文件
+    ///   - key: 插入某个 key 后面
+    ///   - scopeComment: 整块注释
+    /// - Returns: 处理错误日志，没有错误，为 nil
     @available(macOS 13.0, *)
-    func insertOtherStrings(_ csvFileModel:LanguageFileModel, to filePath:String, after key:String) -> HandleError? {
+    func insertOtherStrings(_ csvFileModel:LanguageFileModel, to filePath:String, after key:String, scopeComment:String?) -> HandleError? {
         guard !csvFileModel.items.isEmpty, !filePath.isEmpty, !key.isEmpty else {
-            return handleUpdateStringsError(message: "csv解析异常，或者文件路径为空，或者 key为空\n fileMode.Items:\(csvFileModel.items) \nfilePath:\(filePath)\nkey:\(key)")
+            return handleUpdateStringsError(message: "csv解析异常，未解析到item、文件路径为空或者带插入某个key后为空\n fileMode.Items:\(csvFileModel.items) \nfilePath:\(filePath)\nkey:\(key)")
         }
         // 插入指定位置
         guard let text = try? String(contentsOfFile: filePath, encoding: .utf8) else {
@@ -28,7 +34,7 @@ struct UpdateStringsHelper{
         let result = LocalizableStringsParser.parse(string: text, locale: filePath)
         let filter = result.localizableStrings.filter { $0.key == key }
         guard filter.count == 1, let first = filter.first else {
-            return handleUpdateStringsError(message:"自动插入，找不到key,或者找到多个key， keyCount:\(filter.count)")
+            return handleUpdateStringsError(message:"自动插入，找不到插入key:\(key),或者找到多个key， keyCount:\(filter.count)")
         }
         // 检查是否包含这个 key,
         var stringsHaveKeys: [String] = []
@@ -53,22 +59,35 @@ struct UpdateStringsHelper{
             }
             let insertIndexHave2EmptyLine = indexResult.insertIndexHave2EmptyLine
             var willInsertText = "\n"
+            if var comment = scopeComment, !comment.isEmpty {
+                comment.replace("\n", with: "\n// ")
+                willInsertText += "\n// \(comment)"
+            }
+            var insertError = ""
             for item in csvFileModel.items {
                 if let desc = item.desc, !desc.isEmpty {
                     willInsertText += "\n// \(desc)"
                 }
-                willInsertText += "\n\"\(item.key)\" = \"\(item.value)\";"
+                if item.key.isEmpty || item.value.isEmpty {
+                    insertError += "存在空字符串\nkey:\(item.key)\nvalue:\(item.value) \n"
+                } else {
+                    willInsertText += "\n\"\(item.key)\" = \"\(item.value)\";"
+                }
             }
             if !insertIndexHave2EmptyLine {
                 willInsertText = willInsertText + "\n\n"
             }
             var allStrings = text
             allStrings.insert(contentsOf: willInsertText, at: index)
-            // 删除文件，重新写入
+            // 删除文件，重新写入, git跟踪不会引入文件变化，只有文本改动变化。
             do {
                 try FileManager.default.removeItem(atPath: filePath)
                 try allStrings.write(toFile: filePath, atomically: true, encoding: .utf8)
-                return nil;
+                if insertError.isEmpty {
+                    return nil;
+                } else {
+                    return handleUpdateStringsError(message:"自动插入，部分插入存在问题：\n\(insertError)")
+                }
             } catch let error {
                 return handleUpdateStringsError(message:"自动插入，文件删除或者写入失败：\(error)")
             }

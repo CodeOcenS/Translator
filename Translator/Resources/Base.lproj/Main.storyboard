@@ -679,7 +679,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PMu-2o-xXX">
-                                <rect key="frame" x="18" y="359" width="124" height="40"/>
+                                <rect key="frame" x="19" y="360" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="选择 .csv" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="SgE-mg-ixs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -694,7 +694,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cmg-3Y-CBq">
-                                <rect key="frame" x="18" y="414" width="124" height="40"/>
+                                <rect key="frame" x="19" y="415" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="存储路径" bezelStyle="texturedSquare" image="buttonCell:bC9-ua-ztb:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bC9-ua-ztb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -732,7 +732,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-YI-48S">
-                                <rect key="frame" x="18" y="314" width="124" height="40"/>
+                                <rect key="frame" x="19" y="315" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="解析到一个 Stings 文件" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="pe8-58-rH4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -747,7 +747,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFE-SN-vvi">
-                                <rect key="frame" x="18" y="469" width="124" height="40"/>
+                                <rect key="frame" x="19" y="470" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="多语言注释(可选)" bezelStyle="texturedSquare" image="buttonCell:hDr-xI-1m0:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDr-xI-1m0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -778,13 +778,13 @@
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BRa-eS-Hjl">
                                 <rect key="frame" x="28" y="261" width="483" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="以下自动解析配置，补充其他翻译（除了 en）" id="A3l-en-fVg">
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7cs-UT-Jwq">
-                                <rect key="frame" x="18" y="203" width="124" height="40"/>
+                                <rect key="frame" x="19" y="204" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="多语言目录地址" bezelStyle="texturedSquare" image="buttonCell:OWH-iO-p1Q:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OWH-iO-p1Q">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -803,7 +803,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kRo-NF-qbT">
-                                <rect key="frame" x="18" y="153" width="124" height="40"/>
+                                <rect key="frame" x="19" y="154" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="多语言文件名" bezelStyle="texturedSquare" image="buttonCell:YxU-PN-10B:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YxU-PN-10B">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -815,14 +815,14 @@
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-d8-4YY">
                                 <rect key="frame" x="150" y="156" width="369" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="Localizable" placeholderString="stings 前的名字，比如 Localizable.strings， 则填 Localizable" drawsBackground="YES" id="AR8-5e-LLk">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" title="Localizable" placeholderString="stings 前的名字，比如 Localizable.strings， 则填 Localizable" drawsBackground="YES" usesSingleLineMode="YES" id="AR8-5e-LLk">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uym-mb-UPV">
-                                <rect key="frame" x="18" y="103" width="124" height="40"/>
+                                <rect key="frame" x="19" y="104" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="插入 Key" bezelStyle="texturedSquare" image="buttonCell:eAg-2D-dka:image" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eAg-2D-dka">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -834,14 +834,14 @@
                             </button>
                             <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vPY-fR-0gw">
                                 <rect key="frame" x="150" y="106" width="369" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="插入到某个 key 后" drawsBackground="YES" id="Ie7-2F-iZb">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="插入到某个 key 后" drawsBackground="YES" usesSingleLineMode="YES" id="Ie7-2F-iZb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JzT-Rf-Ktt">
-                                <rect key="frame" x="18" y="38" width="124" height="40"/>
+                                <rect key="frame" x="19" y="39" width="122" height="38"/>
                                 <buttonCell key="cell" type="squareTextured" title="自动解析到项目" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="FiF-bC-abN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
