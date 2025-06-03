@@ -65,13 +65,11 @@ struct UpdateStringsHelper{
             }
             var insertError = ""
             for item in csvFileModel.items {
-                if let desc = item.desc, !desc.isEmpty {
-                    willInsertText += "\n// \(desc)"
-                }
-                if item.key.isEmpty || item.value.isEmpty {
-                    insertError += "存在空字符串\nkey:\(item.key)\nvalue:\(item.value) \n"
+                let stringsText = Self.stringsText(item: item)
+                if let errogMsg = stringsText.errorMsg {
+                    insertError += errogMsg
                 } else {
-                    willInsertText += "\n\"\(item.key)\" = \"\(item.value)\";"
+                    willInsertText += stringsText.text
                 }
             }
             if !insertIndexHave2EmptyLine {
@@ -111,5 +109,24 @@ struct UpdateStringsHelper{
     func updateStrings(csvFile:LanguageFileModel) -> HandleError {
         // TODO: - LWF:  待完善
         return HandleError(message: "暂未实现")
+    }
+}
+
+extension UpdateStringsHelper {
+    static func stringsText(item: LanguageItem) -> (errorMsg:String? , text:String) {
+        var text = ""
+        var errorMsg: String? = nil
+        if var desc = item.desc, !desc.isEmpty {
+            desc = desc.replacingOccurrences(of: "\n", with: "\n// ")
+            text += "\n// \(desc)"
+        }
+        let key = LocalizableStringsUtils.replaceSpecial(item.key.removeWhitespace())
+        let value = LocalizableStringsUtils.replaceSpecial(item.value.removeWhitespace())
+        if key.isEmpty || value.isEmpty {
+           errorMsg = "存在空字符串\nkey:\(key)\nvalue:\(value) \n"
+        } else {
+            text += "\n\"\(key)\" = \"\(value)\";"
+        }
+        return (errorMsg, text)
     }
 }

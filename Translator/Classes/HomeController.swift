@@ -102,10 +102,7 @@ class HomeController: NSViewController {
         self.parseCSVFile(stream: stream,savePath: path)
     }
     
-    
-    @IBAction func previewButtonTapped(_ sender: NSButton) {
-        previewCSV()
-    }
+
     
     func updateView(with url: URL?) {
         guard let url = url else { return }
@@ -114,7 +111,6 @@ class HomeController: NSViewController {
         savePathField.stringValue = url.absoluteString.urlDecoded().removeFileHeader()
     }
     @IBAction func parseAutoInsertButtonTapped(_ sender: NSButton) {
-        // TODO: - LWF:  待优化， 将英文也添加到结果 strings 中
         // 检查合法性
         let insertKey = self.insertKeyTextField.stringValue.removeWhitespace()
         guard !insertKey.isEmpty else {
@@ -130,9 +126,7 @@ class HomeController: NSViewController {
         }
         // 解析 excel 自动插入到对应语种的 strings 文件中
         do {
-            var stringsFilePaths = try findLanguagePaths()
-            // 去掉 en.lproj
-            stringsFilePaths.removeAll(where: {$0.parent.fileName == "en\(stringsFileParentSuffix)"})
+            let stringsFilePaths = try findLanguagePaths()
             // 开始对其他语言插入
             _ = self.autoInsertStrings(paths: stringsFilePaths, after: insertKey)
         } catch let error as HandleError {
@@ -275,7 +269,7 @@ extension HomeController {
                     if key.isEmpty {
                         Log.shared.error("\(value)缺少对应key")
                     }
-                    var result = "\"\(Self.replaceSpecial(key))\" = \"\(Self.replaceSpecial(value))\";"
+                    var result = "\"\(LocalizableStringsUtils.replaceSpecial(key))\" = \"\(LocalizableStringsUtils.replaceSpecial(value))\";"
                     if (descr.count > 0) {
                         let describeArray = descr.components(separatedBy: "\n")
                         var describe = ""
@@ -382,31 +376,6 @@ extension HomeController {
         }
         return nil
     }
-    /// 替换特殊字符 1. %s -> %@  2. " -> \"
-    public static func replaceSpecial(_ text: String) -> String {
-        var result: String = text
-        // 将全角符号替换为半角
-        result = result.replacingOccurrences(of: "％", with: "%")
-        result = result.replacingOccurrences(of: "＠", with: "@")
-        result = result.replacingOccurrences(of: "｛", with: "{")
-        result = result.replacingOccurrences(of: "｝", with: "}")
-        
-        //let replacingStr = text.replacingOccurrences(of: "%s", with: "%@") // 处理日语 百分号
-        // %s 替换为 %@
-        result = result.replacingOccurrences(of: "%s", with: "%@")
-        // 处理value 中有引号问题
-        guard let regularExpression = try? NSRegularExpression(pattern: #"(?<!\\)""#) else {
-            return result
-        }
-        result = regularExpression.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"\\\""#)
-        // 处理 {数字} 为 %@ (保留{数组}格式2024.8.13)
-//        let pattern2 = #"\{\d{1,2}\}"#
-//        guard let regex2 = try? NSRegularExpression(pattern: pattern2) else {
-//            return result
-//        }
-//        result = regex2.stringByReplacingMatches(in: result, range: NSRange(location: 0, length: result.count), withTemplate: #"%@"#)
-        return result
-    }
     
     /// 将所有语言 string 合并到一个文件夹
     private func mergeAllLanguageToOneFile(paths: [String], save: URL) {
@@ -512,31 +481,48 @@ extension HomeController  {
                         try "// 自动插入多语言处理结果\n" |>> textFile
                     }
                     // 真正插入
-                    for path in paths {
+                    let keyEn = "en";
+                    var isContainEn = false
+                    // 将en调整到第一个
+                    var sortPaths = paths;
+                    if let enIndex =  paths.firstIndex(where: {$0.parent.fileNameWithoutExtension.lowercased() == keyEn}) {
+                        isContainEn = true
+                        let enPath = sortPaths.remove(at: enIndex)
+                        sortPaths.insert(enPath, at: 0)
+                    }
+                    for path in sortPaths {
                         let languageName = path.parent.fileNameWithoutExtension
                         var stringsFileText = "\n\n// MARK: - \(languageName)";
                         if let aimFileModel = result.models.first(where: {$0.languageName.lowercased() == languageName.lowercased()}) {
-                            if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key, scopeComment: self.commentsTextField.stringValue.removeWhitespace()) {
-                                errorMsg += error.message + "\n"
-                                stringsFileText += "\n// 自动插入失败：\n// \(error.message)\n"
+                            // 如果为en, 直接写入Resutl.strings，方便复制对比，不用插入。
+                            if languageName.lowercased() == keyEn {
+                                stringsFileText += "\n// en原文，不会自动插入，请手动复制更新，对比版本差异："
                                 let stringsText = stringsText(aimFileModel)
                                 stringsFileText += "\n\(stringsText)"
                             } else {
-                                successPath.append(path)
-                                stringsFileText += "\n// 自动插入成功, 请前往 git 版本控制检查。"
+                                // 其他语种，插入。
+                                if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key, scopeComment: self.commentsTextField.stringValue.removeWhitespace()) {
+                                    errorMsg += error.message + "\n"
+                                    stringsFileText += "\n// 自动插入失败❌️：\n// \(error.message)\n"
+                                    let stringsText = stringsText(aimFileModel)
+                                    stringsFileText += "\n\(stringsText)"
+                                } else {
+                                    successPath.append(path)
+                                    stringsFileText += "\n// 自动插入成功✅, 请前往 git 版本控制检查。"
+                                }
                             }
                         } else {
                             // 没有找到对应多语言列
                             let msg = "在csv 中没有找到对应语种\(languageName)翻译\n"
                             errorMsg += msg
-                            stringsFileText += "\n// 自动插入失败：\(msg)"
+                            stringsFileText += "\n// 自动插入失败❌️：\(msg)"
                         }
                         try stringsFileText |>> textFile
                     }
                     var shouldOpenFile = false;
                     if successPath.isEmpty {
                         shouldOpenFile = showAlert(title: "所有多语言插入失败，请手动处理", msg: "请前往AutoInsertLocalizableResult.strings文件查看", doneTitle: "去处理")
-                    } else if successPath.count == paths.count {
+                    } else if successPath.count == (isContainEn ? paths.count - 1 : paths.count) {
                         // 所有都成功
                         shouldOpenFile = showAlert(title: "所有多语言插入成功", doneTitle: "确定")
                     } else {
@@ -559,49 +545,11 @@ extension HomeController  {
     }
     func stringsText(_ fileModel: LanguageFileModel) -> String {
         let strings = fileModel.items.map { item in
-            var text = ""
-            if let desc = item.desc, !desc.isEmpty {
-                text += "// \(desc)\n"
-            }
-            text += "\"\(Self.replaceSpecial(item.key))\" = \"\(Self.replaceSpecial(item.value))\""
-            return text
+            return UpdateStringsHelper.stringsText(item: item).text
         }
-        return strings.joined(separator: "\n")
+        return strings.joined(separator: "")
     }
 }
-
-extension HomeController {
-    
-    func previewCSV() {
-        let csvPath = NSTemporaryDirectory() + "example.csv"
-        debugPrint("Save path: \(csvPath)")
-        let stream = OutputStream(toFileAtPath: csvPath, append: false)!
-        
-        do {
-            try Path(csvPath).createFile()
-            
-            let csv = try CSVWriter(stream: stream)
-            
-            try csv.write(row: ["Key","en","zh-Hant","ko","ja"])
-            try csv.write(row: ["app.key1","EN 1","CN 1","KO 1","JA 1"])
-            try csv.write(row: ["app.key2","EN 2","CN 2","KO 2","JA 2"])
-            try csv.write(row: ["app.key3","EN 3","CN 3","KO 3","JA 3"])
-            
-            csv.stream.close()
-            
-            debugPrint("\(Localized.createdSuccessfully)")
-            
-            DispatchQueue.main.async {
-                let csvUrl = URL(fileURLWithPath: csvPath)
-                NSWorkspace.shared.open(csvUrl)
-            }
-        } catch {
-            showAlert(title: "\(Localized.creationFailed)：\(error)")
-        }
-    }
-    
-}
-
 extension HomeController {
     
     /// 展示弹窗

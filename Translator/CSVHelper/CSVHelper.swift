@@ -37,7 +37,7 @@ public struct CSVHelper {
             throw handleCSVError(message: "未找到包含 Key 的行")
         }
         // 删除中文 （ ）
-        let keyRow = tempKeyRow.map({deleteChinese($0).removeWhitespace()})
+        let keyRow = tempKeyRow.map({ isIgnoreTitle($0) ? $0 : deleteChinese($0).removeWhitespace()})
         debugPrint("表头数据：\(keyRow)\n")
         // 检查是否包含 Key 列
         guard let keyIndex = keyRow.firstIndex(where: {keyTitles.contains($0.removeWhitespace())}) else {
