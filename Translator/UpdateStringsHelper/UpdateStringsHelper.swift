@@ -16,13 +16,14 @@ private func handleUpdateStringsError(message: String) -> HandleError {
 struct UpdateStringsHelper{
     /// 插入新增 strings
     /// - Parameters:
-    ///   - csvFileModel: csvFileModel 解析 csv 文件 model
+    ///   - csvFileModel: 解析 csv 文件 某个语种 model
+    ///   - enFileModel: 解析 csv 文件 英语语种 model
     ///   - filePath: strings 文件
     ///   - key: 插入某个 key 后面
     ///   - scopeComment: 整块注释
     /// - Returns: 处理错误日志，没有错误，为 nil
     @available(macOS 13.0, *)
-    func insertOtherStrings(_ csvFileModel:LanguageFileModel, to filePath:String, after key:String, scopeComment:String?) -> HandleError? {
+    func insertOtherStrings(_ csvFileModel:LanguageFileModel, enFileMode:LanguageFileModel?, to filePath:String, after key:String, scopeComment:String?) -> HandleError? {
         guard !csvFileModel.items.isEmpty, !filePath.isEmpty, !key.isEmpty else {
             return handleUpdateStringsError(message: "csv解析异常，未解析到item、文件路径为空或者带插入某个key后为空\n fileMode.Items:\(csvFileModel.items) \nfilePath:\(filePath)\nkey:\(key)")
         }
@@ -58,23 +59,42 @@ struct UpdateStringsHelper{
                 return handleUpdateStringsError(message:"自动插入，找不到插入点")
             }
             let insertIndexHave2EmptyLine = indexResult.insertIndexHave2EmptyLine
-            var willInsertText = "\n"
+            var willInsertText = ""
+            var insertError = ""
+            if let en = enFileMode, !checkKeyEqual(enFileModelItems: en.items, otherFileModelItems: csvFileModel.items) {
+                insertError += "自动插入，\(en.languageName)和\(csvFileModel.languageName)语言的key不一致，请检查"
+            }
+            // 检查占位符个数是否相等
+            if let en = enFileMode,
+               let errorMsg = checkPlaceholderCountEqual(enFileModel: en, otherFileModel: csvFileModel),
+               !errorMsg.isEmpty
+            {
+                insertError += errorMsg
+            }
+            if insertError.isEmpty {
+                for item in csvFileModel.items {
+                    let stringsText = Self.stringsText(item: item)
+                    if let errorMsg = stringsText.errorMsg {
+                        insertError += errorMsg
+                    }else {
+                        willInsertText += stringsText.text
+                    }
+                }
+            }
+            guard !willInsertText.isEmpty else {
+                return handleUpdateStringsError(message:"自动插入，没有任何key value插入：\n\(addComment(insertError))")
+            }
+            
+            // 有值处理头和尾部
             if var comment = scopeComment, !comment.isEmpty {
                 comment.replace("\n", with: "\n// ")
                 willInsertText += "\n// \(comment)"
-            }
-            var insertError = ""
-            for item in csvFileModel.items {
-                let stringsText = Self.stringsText(item: item)
-                if let errogMsg = stringsText.errorMsg {
-                    insertError += errogMsg
-                } else {
-                    willInsertText += stringsText.text
-                }
+                willInsertText.insert(contentsOf: "\n// \(comment)", at: willInsertText.startIndex)
             }
             if !insertIndexHave2EmptyLine {
                 willInsertText = willInsertText + "\n\n"
             }
+            
             var allStrings = text
             allStrings.insert(contentsOf: willInsertText, at: index)
             // 删除文件，重新写入, git跟踪不会引入文件变化，只有文本改动变化。
@@ -84,7 +104,7 @@ struct UpdateStringsHelper{
                 if insertError.isEmpty {
                     return nil;
                 } else {
-                    return handleUpdateStringsError(message:"自动插入，部分插入存在问题：\n\(insertError)")
+                    return handleUpdateStringsError(message:"自动插入，部分插入存在问题：\n\(addComment(insertError))")
                 }
             } catch let error {
                 return handleUpdateStringsError(message:"自动插入，文件删除或者写入失败：\(error)")
@@ -113,6 +133,7 @@ struct UpdateStringsHelper{
 }
 
 extension UpdateStringsHelper {
+    /// 将mode 生成为Strings 文本
     static func stringsText(item: LanguageItem) -> (errorMsg:String? , text:String) {
         var text = ""
         var errorMsg: String? = nil
@@ -123,10 +144,60 @@ extension UpdateStringsHelper {
         let key = LocalizableStringsUtils.replaceSpecial(item.key.removeWhitespace())
         let value = LocalizableStringsUtils.replaceSpecial(item.value.removeWhitespace())
         if key.isEmpty || value.isEmpty {
-           errorMsg = "存在空字符串\nkey:\(key)\nvalue:\(value) \n"
-        } else {
+           errorMsg = "存在空字符串:\"\(key)\" = \"\(value)\"\n"
+        } else if LocalizableStringsAvailableCheck.isSpecialExcelErrorValue(cellValue: value) {
+            errorMsg = "存在异常excel错误码:\"\(key)\" = \"\(value)\"\n"
+        }
+        else {
             text += "\n\"\(key)\" = \"\(value)\";"
         }
         return (errorMsg, text)
+    }
+    /// 检查英语和其他语言的key 是否一致
+    func checkKeyEqual(enFileModelItems: [LanguageItem], otherFileModelItems: [LanguageItem]) -> Bool {
+        guard enFileModelItems.count == otherFileModelItems.count else {
+            return false
+        }
+        let enKeys = Set(enFileModelItems.map { $0.key })
+        let otherKeys = Set(otherFileModelItems.map { $0.key })
+        return enKeys == otherKeys
+    }
+    /// 检查占位符个数是否一致
+    func checkPlaceholderCountEqual(enFileModel: LanguageFileModel, otherFileModel: LanguageFileModel) -> String? {
+        let enFileModelItems: [LanguageItem] = enFileModel.items
+        let otherFileModelItems: [LanguageItem] = otherFileModel.items
+        var errorMsg: String? = nil
+        for item in enFileModelItems {
+            let enKey = item.key
+            let enValue = item.value
+            let enPlaceholderCheckResult = LocalizableStringsUtils.checkPlaceholderCount(string: enValue)
+            if enPlaceholderCheckResult.0 {
+                if let otherValue = otherFileModelItems.first(where: { $0.key == enKey })?.value {
+                    let otherPlaceholderCheckResult = LocalizableStringsUtils.checkPlaceholderCount(string: otherValue)
+                    if !otherPlaceholderCheckResult.0 {
+                        errorMsg = "\(otherFileModel.languageName)占位符不合法，请检查：key:\(enKey), value:\(otherValue) \n"
+                    } else if enPlaceholderCheckResult.1 != otherPlaceholderCheckResult.1 {
+                        errorMsg = "\(enFileModel.languageName)和\(otherFileModel.languageName)占位符个数不相等，请检查：key:\(enKey), value:\(otherValue) \n"
+                    }
+                }
+            } else {
+                errorMsg = "\(enFileModel.languageName)占位符不合法，请检查：key:\(enKey), value:\(enValue) \n"
+            }
+        }
+        return errorMsg
+    }
+    
+    // 自动添加注释
+    func addComment(_ string:String) -> String {
+        guard !string.isEmpty else {
+            return string
+        }
+        var text = string
+        text = text.replacingOccurrences(of: "\n", with: "\n// ")
+        text = text.replacingOccurrences(of: "\n////", with: "\n//")
+        if !text.hasPrefix("//") {
+            text = "// \(text)"
+        }
+        return text;
     }
 }

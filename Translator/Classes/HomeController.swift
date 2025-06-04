@@ -490,6 +490,7 @@ extension HomeController  {
                         let enPath = sortPaths.remove(at: enIndex)
                         sortPaths.insert(enPath, at: 0)
                     }
+                    let enFileModel: LanguageFileModel? = result.models.first(where: {$0.languageName.lowercased() == keyEn.lowercased()})
                     for path in sortPaths {
                         let languageName = path.parent.fileNameWithoutExtension
                         var stringsFileText = "\n\n// MARK: - \(languageName)";
@@ -497,11 +498,24 @@ extension HomeController  {
                             // 如果为en, 直接写入Resutl.strings，方便复制对比，不用插入。
                             if languageName.lowercased() == keyEn {
                                 stringsFileText += "\n// en原文，不会自动插入，请手动复制更新，对比版本差异："
-                                let stringsText = stringsText(aimFileModel)
+                                // 检查占位符个数是否相等
+                                if let msg = updateStringsHelper.checkPlaceholderCountEqual(enFileModel: aimFileModel, otherFileModel: aimFileModel),
+                                        !msg.isEmpty
+                                {
+                                    stringsFileText += "\n// 注意，英语原文有如下错误❌️，请核对:\n //" + msg
+                                }
+                                var stringsText = ""
+                                for item in aimFileModel.items {
+                                    let result = UpdateStringsHelper.stringsText(item: item)
+                                    stringsText += result.text;
+                                    if let msg = result.errorMsg {
+                                        stringsFileText += "\n //" +  msg
+                                    }
+                                }
                                 stringsFileText += "\n\(stringsText)"
                             } else {
                                 // 其他语种，插入。
-                                if let error = updateStringsHelper.insertOtherStrings(aimFileModel, to: path.rawValue, after: key, scopeComment: self.commentsTextField.stringValue.removeWhitespace()) {
+                                if let error = updateStringsHelper.insertOtherStrings(aimFileModel, enFileMode: enFileModel, to: path.rawValue, after: key, scopeComment: self.commentsTextField.stringValue.removeWhitespace()) {
                                     errorMsg += error.message + "\n"
                                     stringsFileText += "\n// 自动插入失败❌️：\n// \(error.message)\n"
                                     let stringsText = stringsText(aimFileModel)

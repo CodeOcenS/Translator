@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CodeOcenS/LocalizableStringsTools.git",
       "state" : {
-        "revision" : "37e5e9577d3e78c587d1b1e53d3a7f0e50d19a38",
-        "version" : "1.0.2"
+        "revision" : "4726f274b04ee55c46e7f9d0074ced29d70e0aae",
+        "version" : "1.0.4"
       }
     }
   ],

@@ -35,27 +35,3 @@ class TranslatorTests: XCTestCase {
 
 }
 
-extension TranslatorTests {
-    ///  测试value含有引号问题，需要统一处理为\"
-    func testPlaceholder() {
-        let givenString = "value\\\"key\"引号\""
-        let replacedString = HomeController.replaceSpecial(givenString)
-        XCTAssertTrue(replacedString == #"value\"key\"引号\""#)
-        
-        let givenString1 = "我有%s元"
-        let replacedString2 = HomeController.replaceSpecial(givenString1)
-        XCTAssertTrue(replacedString2 == #"我有%@元"#)
-        let givenString3 = "{0}替换{11}"
-        let replacedString3 = HomeController.replaceSpecial(givenString3)
-        XCTAssertTrue(replacedString3 == "%@替换%@")
-    }
-    
-    func testQuanjiao() {
-        let givenString3 = "全角％＠替换｛11｝"
-        let replacedString3 = HomeController.replaceSpecial(givenString3)
-        XCTAssertTrue(replacedString3 == "全角%@替换%@")
-    }
-    
-    
-    
-}
