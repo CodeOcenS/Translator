@@ -62,7 +62,7 @@ struct UpdateStringsHelper{
             var willInsertText = ""
             var insertError = ""
             if let en = enFileMode, !checkKeyEqual(enFileModelItems: en.items, otherFileModelItems: csvFileModel.items) {
-                insertError += "自动插入，\(en.languageName)和\(csvFileModel.languageName)语言的key不一致，请检查"
+                insertError += "自动插入，\(en.languageName)和\(csvFileModel.languageName)语言的key不一致，请检查:\n\(en.languageName):\n\(en.items)\n\(csvFileModel.languageName):\n\(csvFileModel.items)"
             }
             // 检查占位符个数是否相等
             if let en = enFileMode,
